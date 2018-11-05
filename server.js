@@ -8,6 +8,14 @@ var fs = require('fs');
 var path = require('path');
 var csvjson = require('csvjson');
 
+var bodyParser = require('body-parser');
+
+
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine', 'ejs');
+
+// ******************************************************** //
 
 var request = http.get(URL_CSV, function(response) {
     if (response.statusCode === 200) {
@@ -19,17 +27,19 @@ var request = http.get(URL_CSV, function(response) {
         request.abort();
     });
 });
-
 var options = {
 	delimiter: ',',
 	quote: '"'
 };
-
 var file_data = fs.readFileSync('./csv/file.csv', { encoding: 'utf8' });
 var json_result = csvjson.toObject(file_data, options);
 var data = JSON.stringify(json_result);
-fs.writeFileSync('./json/final-json.json', data);
+fs.writeFileSync('./json/final-json.in', data);
+
+// ******************************************************** //
 
 
-app.get('/', (req, res) => console.log(data));
+
+var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
+app.get('/', (req, res) => res.render('index', {provincias: null, evento_nombre: null}));
 app.listen(3000, (req, res) => console.log('port 3000 listening...'));
