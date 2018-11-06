@@ -16,7 +16,7 @@ app.set('view engine', 'ejs');
 
 // ******************************************************** //
 
-var request = http.get(URL_CSV, function(response) {
+/*var request = http.get(URL_CSV, function(response) {
     if (response.statusCode === 200) {
         var file = fs.createWriteStream("./csv/file.csv");
         response.pipe(file);
@@ -27,25 +27,66 @@ var request = http.get(URL_CSV, function(response) {
     });
 });
 var options = {
-	delimiter: ',',
-	quote: '"'
+  delimiter: ',',
+  quote: '"'
 };
 var file_data = fs.readFileSync('./csv/file.csv', { encoding: 'utf8' });
 var json_result = csvjson.toObject(file_data, options);
 var data = JSON.stringify(json_result);
-fs.writeFileSync('./json/final-json.in', data);
+fs.writeFileSync('./json/final-json.in', data);*/
 
 // ******************************************************** //
 
 var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
 
-let array = [];
-for(let i = 0; i<jsonData.length; i++) {
-    array.push(jsonData[i]['provincia_nombre']);
+
+/*  -- Provinces --
+    total number of provinces,
+    total cases by provinces,
+    total types infection by provinces,
+        total dengue by province,
+        total zika by provinces,
+
+    -- Departures --
+    number of departures,
+    total cases by departure
+    total types infection by departures,
+        total dengue by departures
+        total zika by departures
+*/
+
+var getProvinces = (jss) => {
+  let provinces = [];
+  for(let i = 0; i<jsonData.length; i++) {
+      if(provinces.indexOf(jsonData[i]['provincia_nombre']) == -1) {
+          provinces.push(jsonData[i]['provincia_nombre']);
+      }
+  }
+  return provinces;
 }
 
 
-console.log(array);
+var getZikaDengueInfections = (jss) => {
+  dengueCases = 0;
+  zikaCases = 0;
+  for(let i = 0; i<jsonData.length; i++) {
+    if(jsonData[i]['evento_nombre'] == 'Dengue') {
+      dengueCases += 1;
+    } else {
+      zikaCases += 1;
+    }
+  }
+  return {dengue: dengueCases, zika: zikaCases};
+}
 
-app.get('/', (req, res) => res.render('index', {provincias: null, evento_nombre: null}));
+var provinces = getProvinces(jsonData);
+var totalDengueInfections = getZikaDengueInfections(jsonData)['dengue'];
+var totalZikaInfections = getZikaDengueInfections(jsonData)['zika'];
+var totalInfections = totalZikaInfections + totalDengueInfections;
+
+/* End */
+
+console.log(provinces)
+
+app.get('/', (req, res) => res.render('index', {provincias: provinces, infecciones: totalInfections}));
 app.listen(3000, (req, res) => console.log('port 3000 listening...'));
