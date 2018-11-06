@@ -10,7 +10,6 @@ var csvjson = require('csvjson');
 
 var bodyParser = require('body-parser');
 
-
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
@@ -38,8 +37,15 @@ fs.writeFileSync('./json/final-json.in', data);
 
 // ******************************************************** //
 
-
-
 var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
+
+let array = [];
+for(let i = 0; i<jsonData.length; i++) {
+    array.push(jsonData[i]['provincia_nombre']);
+}
+
+
+console.log(array);
+
 app.get('/', (req, res) => res.render('index', {provincias: null, evento_nombre: null}));
 app.listen(3000, (req, res) => console.log('port 3000 listening...'));

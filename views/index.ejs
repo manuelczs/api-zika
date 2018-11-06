@@ -1,34 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+  <meta charset="utf-8">
+
   <title>Info Zika y Dengue</title>
-  <link href="../public/css/style.css" rel="stylesheet" type="text/css">
+
+  <!-- jQuery CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
   <!-- Optional theme -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 </head>
 <body>
+  
+  <style>
+      #map {width: 65%; height: 600px; background-color: #00A2FF;}
+      body {background-color: white; color: white;}
+      .header {background-color: black;}
+      h4 {color: red;}
+      .map-section {margin: 0px; padding: 0px;}
+      .side-map {margin: 0px; padding: 0px;}
+  </style>
 
   <div class="container-fluid">
     <div class="row">
-      <div class="header-1 col-sm-12">
-        mainheader
-      </div>
+      
+      <div class="header col-sm-12 bg-info">
+        
+        <div class="col-sm-12 text-center">
+          <h2>INFORMACION SOBRE CASOS DE DENGUE Y ZIKA EN ARGENTINA</h2>
+        </div>
 
-      <div>
-        map
+        <div class="texto text-center">
+          <h4>Casos confirmados de dengue y Zika correspondientes al Registro del Sistema Nacional de Vigilancia de la Salud - Ultima actualizacion: Octubre-2018</h4>
+        </div>
+      
       </div>
-    </div>
-  </div>
+      
+      <hr> <!-- ************************* Line ************************* -->
+
+      <div class="row">
+        <div class="col-sm-6 map-section" id="map"></div> <!-- end map-section -->
+        <div class="col-sm-4">
+          asdf
+        </div>
+      </div> <!-- end row -->
+    </div> <!-- end main row -->
+  </div> <!-- end container-fluid -->
 
   <footer>
-    
   </footer>
+  
+  <script>
+      // Initialize and add the map
+      function initMap() {
+        // The location of Uluru
+        var argentina = {lat: -32, lng: -64};
+        // The map, centered at Uluru
+        var map = new google.maps.Map(
+            document.getElementById('map'), {zoom: 5, center: argentina});
+        // The marker, positioned at Uluru
+        var marker = new google.maps.Marker({position: argentina, map: map});
+      }
+    </script>
+    </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVLrCMa-XmuVYPDsQqGn8Veantsp1w8bc&callback=initMap">
+    </script>
 </body>
 </html>
