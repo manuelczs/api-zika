@@ -90,7 +90,7 @@ var getDepartures = (jss) => {
   return departures_aux;
 }
 
-/*
+
 var getZikaByProvince = (jss) => {
   let provincess = getProvinces(jss);
   let provincess_aux = [];
@@ -104,14 +104,13 @@ var getZikaByProvince = (jss) => {
   }
 
   return provincess_aux;
-}*/
+}
 
-
-var provinces = getProvinces(jsonData); // return an array
-var departures = getDepartures(jsonData); // return an object
-var totalDengueInfections = getZikaDengueInfections(jsonData)['dengue']; // return an object
-var totalZikaInfections = getZikaDengueInfections(jsonData)['zika']; // return an integer
-var totalInfections = totalZikaInfections + totalDengueInfections; // return an integer
+var provinces = getProvinces(jsonData); // returns an array
+var departures = getDepartures(jsonData); // returns an object
+var totalDengueInfections = getZikaDengueInfections(jsonData)['dengue']; // returns an object
+var totalZikaInfections = getZikaDengueInfections(jsonData)['zika']; // returns an integer
+var totalInfections = totalZikaInfections + totalDengueInfections; // returns an integer
 //var zikaByProvince = getZikaByProvince(jsonData);
 
 /* End */

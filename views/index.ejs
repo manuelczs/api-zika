@@ -22,14 +22,17 @@
 <body>
   
   <style>
-      #map {width: 65%; height: 600px; background-color: #00A2FF;}
-      body {background-color: white; color: white;}
-      .header {background-color: black;}
-      h4 {color: red;}
-      .map-section {margin: 0px; padding: 0px;}
-      .side-map {margin: 0px; padding: 0px;}
+      #map { width: 65%; height: 600px; background-color: #00A2FF; }
+      body { background-color: white; color: white; }
+      .header { background-color: black; }
+      h4 { color: red; }
+      .map-section { margin: 0px; padding: 0px; }
+      .side-map { margin: 0px; padding: 0px; }
+      .right-side { color: blue; border-color: black; border-style: solid; border-width: 4px; padding: 3px;}
+      .right-side, col, h2 { background-color: black; color: white; text-align: center; }
   </style>
 
+  <!-- Main Container -->
   <div class="container-fluid">
     <div class="row">
       
@@ -50,7 +53,22 @@
       <div class="row">
         <div class="col-sm-6 map-section" id="map"></div> <!-- end map-section -->
         <div class="col-sm-4">
-          asdf
+          <div class="row right-side">
+            <div class="col">
+              <div>
+                <h2>Provincias</h2>
+              </div>
+            </div>
+            <div>
+              <% if (provincias == null) { -%>
+                <h3>Sin provincias</h3>
+              <% } else { -%>
+                <p> <%= provincias[0] %>
+                    <%= provincias[2] %>
+                </p>
+              <% } -%>
+            </div>
+          </div>
         </div>
       </div> <!-- end row -->
     </div> <!-- end main row -->
