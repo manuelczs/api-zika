@@ -21,11 +21,13 @@
 </head>
 <body>
   
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+
   <style>
       #map { width: 65%; height: 600px; background-color: #00A2FF; }
-      body { background-color: white; color: white; }
+      body { background-color: black; color: white; font-family: 'Ubuntu';}
       .header { background-color: black; }
-      h4 { color: red; }
+      h4 { color: yellow; }
       .map-section { margin: 0px; padding: 0px; }
       .side-map { margin: 0px; padding: 0px; }
       .right-side { color: blue; border-color: black; border-style: solid; border-width: 4px; padding: 3px;}
@@ -43,7 +45,7 @@
         </div>
 
         <div class="texto text-center">
-          <h4>Casos confirmados de dengue y Zika <%= infecciones%> - Ultima actualizacion: Octubre-2018</h4>
+          <h4>Casos confirmados de Dengue y Zika: <%= infecciones%> - Ultima actualizacion: Octubre-2018</h4>
         </div>
       
       </div>
@@ -51,22 +53,22 @@
       <hr> <!-- ************************* Line ************************* -->
 
       <div class="row">
-        <div class="col-sm-6 map-section" id="map"></div> <!-- end map-section -->
-        <div class="col-sm-4">
+        <div class="col-sm-12 col-md-6 map-section" id="map"></div> <!-- end map-section -->
+        <div class="col-sm-12 col-md-4">
           <div class="row right-side">
-            <div class="col">
+            <div class="col-sm-12">
               <div>
-                <h2>Provincias</h2>
+                <h2>PROVINCIAS AFECTADAS</h2>
               </div>
             </div>
             <div>
-              <% if (provincias == null) { -%>
+              <% if (provincias == null) { %>
                 <h3>Sin provincias</h3>
-              <% } else { -%>
-                <p> <%= provincias[0] %>
-                    <%= provincias[2] %>
-                </p>
-              <% } -%>
+              <% } else { %>
+                <% for(let i = 0; i<provincias.length; i++) { %>
+                    <h4><%= provincias[i] %></h4>
+                <% } %>
+              <% } %>
             </div>
           </div>
         </div>

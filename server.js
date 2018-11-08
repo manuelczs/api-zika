@@ -15,8 +15,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
 // ******************************************************** //
-
-/*var request = http.get(URL_CSV, function(response) {
+/*
+var request = http.get(URL_CSV, function(response) {
     if (response.statusCode === 200) {
         var file = fs.createWriteStream("./csv/file.csv");
         response.pipe(file);
@@ -79,15 +79,15 @@ var getZikaDengueInfections = (jss) => {
 }
 
 var getDepartures = (jss) => {
-  let departures = [];
-  let departures_aux = [];
+  let depart = [];
+  let depart_aux = [];
   for(let i = 0; i<jss.length; i++) {
-    if(departures.indexOf(jss[i]['departamento_nombre']) == -1) {
-      departures_aux.push({ departamento: jss[i]['departamento_nombre'], provincia: jss[i]['provincia_nombre'] });
-      departures.push(jss[i]['departamento_nombre']);
+    if(depart.indexOf(jss[i]['departamento_nombre']) == -1) {
+      depart_aux.push({ departamento: jss[i]['departamento_nombre'], provincia: jss[i]['provincia_nombre'] });
+      depart.push(jss[i]['departamento_nombre']);
     }
   }
-  return departures_aux;
+  return depart_aux;
 }
 
 
