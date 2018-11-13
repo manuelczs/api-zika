@@ -39,22 +39,6 @@ fs.writeFileSync('./json/final-json.in', data);
 
 var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
 
-
-/*  -- Provinces --
-    total number of provinces,
-    total cases by provinces,
-    total types infection by provinces,
-        total dengue by province,
-        total zika by provinces,
-
-    -- Departures --
-    number of departures,
-    total cases by departure
-    total types infection by departures,
-        total dengue by departures
-        total zika by departures
-*/
-
 var isIn = (elem, arr) => {
   return(arr.indexOf(elem) != -1);
 }

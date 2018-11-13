@@ -12,6 +12,83 @@
   <!--Load the AJAX API-->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
+  <!-- Load 3D charts -->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script type="text/javascript">
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Dengue',     627],
+            ['Zika',      34]
+          ]);
+
+          var options = {
+            title: 'Casos de Dengue y Zika en toda la Argentina',
+            is3D: true,
+          };
+
+          var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+          chart.draw(data, options);
+        }
+  </script>
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script type="text/javascript">
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Buenos Aires',     11],
+            ['CABA',     11],
+            ['Chaco',     11],
+            ['Cordoba',     11],
+            ['Corrientes',     11],
+            ['Entre Rios',     11],
+            ['Formosa',     11],
+            ['Misiones',     11],
+            ['Salta',     11],
+            ['Santa Fe',     11],
+            ['Tucuman',     11],
+            ['Santiago del Estero',     11]
+          ]);
+
+          var options = {
+            title: 'Casos de Dengue y Zika por provincias',
+            is3D: true,
+          };
+
+          var chart = new google.visualization.PieChart(document.getElementById('piechart_3d_1'));
+          chart.draw(data, options);
+        }
+  </script>
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script type="text/javascript">
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Work',     11],
+            ['Eat',      2],
+            ['Commute',  2],
+            ['Watch TV', 2],
+            ['Sleep',    7]
+          ]);
+
+          var options = {
+            title: 'My Daily Activities',
+            is3D: true,
+          };
+
+          var chart = new google.visualization.PieChart(document.getElementById('piechart_3d_2'));
+          chart.draw(data, options);
+        }
+  </script>
+
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -40,8 +117,7 @@
           <p><h4>Ministerio de Salud y Desarrollo Social. Secretaría de Promoción de la Salud, Prevención y Control de Riesgos. Subsecretaría de Prevención y Control de Enfermedades Comunicables e Inmunoprevenibles. Dirección Nacional de Epidemiología y Análisis de la Situación de Salud. Área de Vigilancia.</h4></p>
         </div>
 
-        <div class="col-sm-12 bar">
-          
+        <div class="col-sm-12 bar">          
         </div>
 
         <hr> <!-- end section -->
@@ -56,7 +132,7 @@
 
         <div class="row">
           <div class="col-sm-12 col-md-6">
-            <h3>Provincias afectadas</h3>
+            <h3 class="text-center">Provincias afectadas</h3>
             <div class="div-prov-loc">
               <ul class="list-group">
                 <!-- <li class="list-group-item">Cras justo odio</li> -->
@@ -68,7 +144,7 @@
           </div>
 
           <div class="col-sm-12 col-md-6">
-            <h3>Localidades afectadas</h3>
+            <h3 class="text-center">Localidades afectadas</h3>
             <div class="div-prov-loc">
               <ul class="list-group">
                 <!-- <li class="list-group-item">Cras justo odio</li> -->
@@ -92,6 +168,16 @@
         <hr>
 
         <div class="row">
+          <div class="col-sm-12 col-md-4" id="piechart_3d" style="width: 100%; height: 300px">
+             <!-- <div id="piechart_3d" style="width: 900px; height: 500px;"></div> -->
+          </div>
+          <div class="col-sm-12 col-md-4" id="piechart_3d_1" style="width: 100%; height: 300px"></div>
+          <div class="col-sm-12 col-md-4" id="piechart_3d_2" style="width: 100%; height: 300px"></div>
+        </div>
+
+        <hr>
+
+         <div class="row">
           <div class="col-sm-12">
             <div id="map"></div>
           </div>
@@ -99,15 +185,30 @@
 
         <hr>
 
+
         <div class="row">
-          <div class="col-sm-12 col-md-4">section</div>
-          <div class="col-sm-12 col-md-4">section</div>
-          <div class="col-sm-12 col-md-4">section</div>
+                <div class="col-md-8 col-md-offset-2">
+                  <h3 class="text-center">Contacto - Sugerencias</h4>
+                  <form class="form-horizontal">
+                    <div class="form-group">
+                      <label for="exampleInputName2">Nombre</label>
+                      <input type="text" class="form-control" id="exampleInputName2" placeholder="Juan">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail2">Correo</label>
+                      <input type="email" class="form-control" id="exampleInputEmail2" placeholder="micorreo@ejemplo.com">
+                    </div>
+                    <div class="form-group ">
+                      <label for="exampleInputText">Mensaje</label>
+                     <textarea  class="form-control" placeholder="Algun mensaje por aqui"></textarea> 
+                    </div>
+                    <button type="submit" class="btn btn-default">Enviar</button>
+                  </form>
         </div>
 
-        <hr>
-
         <div class="col-sm-12 bar">
+          
+        </div>
 
     </div> <!-- end main row -->
 
