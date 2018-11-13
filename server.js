@@ -10,7 +10,7 @@ var csvjson = require('csvjson');
 
 var bodyParser = require('body-parser');
 
-app.use(express.static('public'));
+app.use(express.static('./public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
@@ -55,11 +55,15 @@ var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
         total zika by departures
 */
 
+var isIn = (elem, arr) => {
+  return(arr.indexOf(elem) != -1);
+}
+
 var getProvinces = (jss) => {
   let provinces = [];
   for(let i = 0; i<jss.length; i++) {
-      if(provinces.indexOf(jss[i]['provincia_nombre']) == -1) {
-          provinces.push(jss[i]['provincia_nombre']);
+      if(!isIn(jss[i].provincia_nombre, provinces)){
+          provinces.push(jss[i].provincia_nombre);
       }
   }
   return provinces;
@@ -75,39 +79,25 @@ var getZikaDengueInfections = (jss) => {
       zikaCases += 1;
     }
   }
-  return {dengue: dengueCases, zika: zikaCases};
+  return { dengue: dengueCases, zika: zikaCases };
 }
 
-var getDepartures = (jss) => {
+var getDeparts = (jss) => {
   let depart = [];
   let depart_aux = [];
   for(let i = 0; i<jss.length; i++) {
-    if(depart.indexOf(jss[i]['departamento_nombre']) == -1) {
-      depart_aux.push({ departamento: jss[i]['departamento_nombre'], provincia: jss[i]['provincia_nombre'] });
-      depart.push(jss[i]['departamento_nombre']);
+    //(isIn(depart, jss[i].departamento_nombre))
+    if(depart.indexOf(jss[i].departamento_nombre) == -1) {
+      depart_aux.push({ departamento: jss[i].departamento_nombre, provincia: jss[i].provincia_nombre });
+      depart.push(jss[i].departamento_nombre);
     }
   }
   return depart_aux;
 }
 
 
-var getZikaByProvince = (jss) => {
-  let provincess = getProvinces(jss);
-  let provincess_aux = [];
-  
-  for(let i = 0; i<jss.length; i++) {
-    if(jss[i]['evento_nombre'] == 'Enfermedad por Virus del Zika') {
-      var aux = jss[i]['provincia_nombre'];
-      provincess_aux.push({ provincia: aux, casos_de_zika: 0 });
-      console.log(provincess_aux)
-    }
-  }
-
-  return provincess_aux;
-}
-
 var provinces = getProvinces(jsonData); // returns an array
-var departures = getDepartures(jsonData); // returns an object
+var departs = getDeparts(jsonData); // returns an object
 var totalDengueInfections = getZikaDengueInfections(jsonData)['dengue']; // returns an object
 var totalZikaInfections = getZikaDengueInfections(jsonData)['zika']; // returns an integer
 var totalInfections = totalZikaInfections + totalDengueInfections; // returns an integer
@@ -115,7 +105,7 @@ var totalInfections = totalZikaInfections + totalDengueInfections; // returns an
 
 /* End */
 
-console.log('')
+app.get('/', (req, res) => res.render('index', { provincias: provinces, infecciones: totalInfections, departamentos: departs}));
 
-app.get('/', (req, res) => res.render('index', {provincias: provinces, infecciones: totalInfections}));
+
 app.listen(3000, (req, res) => console.log('port 3000 listening...'));

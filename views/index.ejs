@@ -7,7 +7,10 @@
   <title>Info Zika y Dengue</title>
 
   <!-- jQuery CDN -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <!--Load the AJAX API-->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
   <!-- Latest compiled and minified CSS -->
@@ -18,67 +21,43 @@
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+  <script type="text/javascript" src="lss.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </head>
 <body>
-  
-  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 
-  <style>
-      #map { width: 65%; height: 600px; background-color: #00A2FF; }
-      body { background-color: black; color: white; font-family: 'Ubuntu';}
-      .header { background-color: black; }
-      h4 { color: yellow; }
-      .map-section { margin: 0px; padding: 0px; }
-      .side-map { margin: 0px; padding: 0px; }
-      .right-side { color: blue; border-color: black; border-style: solid; border-width: 4px; padding: 3px;}
-      .right-side, col, h2 { background-color: black; color: white; text-align: center; }
-  </style>
+  <!-- main Row -->
+  <div class="row">
 
-  <!-- Main Container -->
-  <div class="container-fluid">
-    <div class="row">
-      
-      <div class="header col-sm-12 bg-info">
-        
-        <div class="col-sm-12 text-center">
-          <h2>INFORMACION SOBRE CASOS DE DENGUE Y ZIKA EN ARGENTINA</h2>
-        </div>
-
-        <div class="texto text-center">
-          <h4>Casos confirmados de Dengue y Zika: <%= infecciones%> - Ultima actualizacion: Octubre-2018</h4>
-        </div>
-      
-      </div>
-      
-      <hr> <!-- ************************* Line ************************* -->
-
+    <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-12 col-md-6 map-section" id="map"></div> <!-- end map-section -->
-        <div class="col-sm-12 col-md-4">
-          <div class="row right-side">
-            <div class="col-sm-12">
-              <div>
-                <h2>PROVINCIAS AFECTADAS</h2>
-              </div>
-            </div>
-            <div>
-              <% if (provincias == null) { %>
-                <h3>Sin provincias</h3>
-              <% } else { %>
-                <% for(let i = 0; i<provincias.length; i++) { %>
-                    <h4><%= provincias[i] %></h4>
-                <% } %>
-              <% } %>
-            </div>
-          </div>
-        </div>
-      </div> <!-- end row -->
-    </div> <!-- end main row -->
-  </div> <!-- end container-fluid -->
+        <div class="col-sm-12 bar"></div>
 
-  <footer>
-  </footer>
-  
+        <div class="col-sm-12 text-center header">
+          <h1>VIGILANCIA DE DENGUE Y ZIKA</h1>
+          <p><h4>Ministerio de Salud y Desarrollo Social. Secretaría de Promoción de la Salud, Prevención y Control de Riesgos. Subsecretaría de Prevención y Control de Enfermedades Comunicables e Inmunoprevenibles. Dirección Nacional de Epidemiología y Análisis de la Situación de Salud. Área de Vigilancia.</h4></p>
+        </div>
+
+        <div class="col-sm-12 bar">
+          texto
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 text-center">
+        </div>
+
+        <div class="col-sm-12">
+          <div id="map"></div>
+        </div>
+
+      </div>
+
+    </div> <!-- end main row -->
+
+  </div>
+  <!-- end main Row -->
   <script>
       // Initialize and add the map
       function initMap() {
@@ -90,8 +69,7 @@
         // The marker, positioned at Uluru
         var marker = new google.maps.Marker({position: argentina, map: map});
       }
-    </script>
-    </script>
+  </script>
     <!--Load the API from the specified URL
     * The async attribute allows the browser to render the page while the API loads
     * The key parameter will contain your own API key (which is not needed for this tutorial)
@@ -99,6 +77,36 @@
     -->
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVLrCMa-XmuVYPDsQqGn8Veantsp1w8bc&callback=initMap">
+    </script>
+
+    <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows(lss);
+
+        // Set chart options
+        var options = {'title':'Casos registrados',
+                       'width':470,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
     </script>
 </body>
 </html>
