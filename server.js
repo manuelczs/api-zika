@@ -105,7 +105,7 @@ var totalInfections = totalZikaInfections + totalDengueInfections; // returns an
 
 /* End */
 
-app.get('/', (req, res) => res.render('index', { provincias: provinces, infecciones: totalInfections, departamentos: departs}));
+app.get('/', (req, res) => res.render('index', { provincias: provinces, infecciones: totalZikaInfections, departamentos: departs, totalZika: totalZikaInfections}));
 
 
 app.listen(3000, (req, res) => console.log('port 3000 listening...'));

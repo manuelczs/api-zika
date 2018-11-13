@@ -362,11 +362,16 @@ template {
 
 .div-prov-loc {
 	padding: 15px;
-	height: 200px;
+	height: 400px;
 	overflow-y: scroll;
+	color: black;
+	font-size: 25px;
 }
 
-
+.totales {
+	padding: 30px;
+	font-size: 20px;
+}
 
 #map {  
 	width: 100%;
