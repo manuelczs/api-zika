@@ -350,6 +350,11 @@ template {
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ end normalize css */
 
+a:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
+
 .col-sm-12 {
 	margin: 0;
 	padding: 0;

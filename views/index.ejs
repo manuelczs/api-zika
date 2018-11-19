@@ -135,7 +135,7 @@
               <ul class="list-group">
                 <!-- <li class="list-group-item">Cras justo odio</li> -->
                 <%for(let i=0; i<provincias.length; i++) {%>
-                <li class="list-group-item"> <%= provincias[i] %> </li>
+                <li class="list-group-item" id="<%= provincias[i] %>"><a> <%= provincias[i]%></a> </li>
                 <%}%>
               </ul>
             </div>
@@ -145,10 +145,7 @@
             <h3 class="text-center">Localidades afectadas</h3>
             <div class="div-prov-loc">
               <ul class="list-group">
-                <!-- <li class="list-group-item">Cras justo odio</li> -->
-                <%for(let i=0; i<departamentos.length; i++) {%>
-                <li class="list-group-item"> <%= departamentos[i] %> </li>
-                <%}%>                
+               <li>texto</li>               
               </ul>
             </div>
           </div>
@@ -215,6 +212,13 @@
 
   </div>
   <!-- end main Row -->
+
+
+  <!-- local js -->
+  <script type="text/javascript">
+    document.getElementById("Buenos Aires").addEventListener('click', () => alert('Clicked'));
+  </script>
+
   <script>
       // Initialize and add the map
       function initMap() {
@@ -233,7 +237,7 @@
     * The callback parameter executes the initMap() function
     -->
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVLrCMa-XmuVYPDsQqGn8Veantsp1w8bc&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=----AIzaSyBVLrCMa-XmuVYPDsQqGn8Veantsp1w8bc&callback=initMap">
     </script>
 </body>
 </html>
