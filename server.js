@@ -53,31 +53,7 @@ var getProvinces = (jss) => {
   return provinces;
 }
 
-var getZikaDengueInfections = (jss) => {
-  let dengueCases = 0;
-  let zikaCases = 0;
-  for(let i = 0; i<jss.length; i++) {
-    if(jss[i]['evento_nombre'] == 'Dengue') {
-      dengueCases += 1;
-    } else {
-      zikaCases += 1;
-    }
-  }
-  return { dengue: dengueCases, zika: zikaCases };
-}
 
-var getDeparts = (jss) => {
-  let depart = [];
-  let depart_aux = [];
-  for(let i = 0; i<jss.length; i++) {
-    //(isIn(depart, jss[i].departamento_nombre))
-    if(depart.indexOf(jss[i].departamento_nombre) == -1) {
-      depart_aux.push({ departamento: jss[i].departamento_nombre, provincia: jss[i].provincia_nombre });
-      depart.push(jss[i].departamento_nombre);
-    }
-  }
-  return depart_aux;
-}
 
 
 var provinces = getProvinces(jsonData); // returns an array
@@ -89,7 +65,7 @@ var totalInfections = totalZikaInfections + totalDengueInfections; // returns an
 
 /* End */
 
-app.get('/', (req, res) => res.render('index', { departamentos: departs, dengue: totalDengueInfections, zika: totalZikaInfections}));
+app.get('/', (req, res) => res.render('index', { provincias: provinces, departamentos: departs, dengue: totalDengueInfections, zika: totalZikaInfections}));
 
 
 app.listen(3000, (req, res) => console.log('port 3000 listening...'));
