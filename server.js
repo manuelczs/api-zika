@@ -57,9 +57,28 @@ var getProvinces = (jss) => {
 var getDeparts = (jss) => {
   let departs = [];
   for(let i = 0; i<jss.length; i++) {
-    if(departs.indexOf(jss[i].provincia_nombre) == -1) {
-      departs.push(jss[i])
+    if(departs.indexOf(jss[i].departamento_nombre) == -1) {
+      departs.push(jss[i].departamento_nombre)
     }
+  }
+  return departs;
+}
+
+var getDepsByProv = (prov, jss) => {
+  let lss = []
+  for(let i = 0; i<jss.length; i++) {
+    if(jss[i].provincia_nombre == prov && lss.indexOf(jss[i].departamento_nombre) == -1) {
+      lss.push(jss[i].departamento_nombre);
+    }
+  }
+  return lss;
+}
+
+var getDepsOfProvs = (jss) => {
+  let provs = getProvinces;
+  let result = [];
+  for(let i = 0; i<jss.length; i++) {
+    result.push({ provincia: provs, getDepsByProv(jss[i].provincia_nombre, jss) });
   }
 }
 
@@ -84,7 +103,7 @@ var getTotalZika = (jss) => {
   return totalZika;
 }
 
-
+console.log(getDepsByProv('Buenos Aires', jsonData))
 
 var provinces = getProvinces(jsonData); // returns an array
 var departs = getDeparts(jsonData); // returns an object
@@ -93,12 +112,9 @@ var totalZikaInfections = getTotalZika(jsonData); // returns an integer
 var totalInfections = totalZikaInfections + totalDengueInfections; // returns an integer
 //var zikaByProvince = getZikaByProvince(jsonData);
 
-console.log(totalInfections)
-
-
 /* End */
-/*
-app.get('/', (req, res) => res.render('index', { provincias: provinces, departamentos: departs, dengue: totalDengueInfections, zika: totalZikaInfections}));
+
+/*app.get('/', (req, res) => res.render('index', { provincias: provinces, departamentos: departs, dengue: totalDengueInfections, zika: totalZikaInfections}));
 
 
 app.listen(3000, (req, res) => console.log('port 3000 listening...'));*/
