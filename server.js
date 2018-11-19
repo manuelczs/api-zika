@@ -39,6 +39,7 @@ fs.writeFileSync('./json/final-json.in', data);
 
 var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
 
+
 var isIn = (elem, arr) => {
   return(arr.indexOf(elem) != -1);
 }
@@ -53,19 +54,51 @@ var getProvinces = (jss) => {
   return provinces;
 }
 
+var getDeparts = (jss) => {
+  let departs = [];
+  for(let i = 0; i<jss.length; i++) {
+    if(departs.indexOf(jss[i].provincia_nombre) == -1) {
+      departs.push(jss[i])
+    }
+  }
+}
+
+var getTotalDengue = (jss) => {
+  let totalDengue = 0;
+  let result = 0;
+  for(let i = 0; i<jss.length; i++) {
+    if(jss[i].evento_nombre == 'Dengue') {
+      totalDengue += Number(jss[i].cantidad_casos);
+    }
+  }
+  return totalDengue;
+}
+
+var getTotalZika = (jss) => {
+  let totalZika = 0;
+  for(let i = 0; i<jss.length; i++) {
+    if(jss[i].evento_nombre == 'Enfermedad por Virus del Zika') {
+      totalZika += Number(jss[i].cantidad_casos);
+    }
+  }
+  return totalZika;
+}
 
 
 
 var provinces = getProvinces(jsonData); // returns an array
 var departs = getDeparts(jsonData); // returns an object
-var totalDengueInfections = getZikaDengueInfections(jsonData)['dengue']; // returns an object
-var totalZikaInfections = getZikaDengueInfections(jsonData)['zika']; // returns an integer
+var totalDengueInfections = getTotalDengue(jsonData); // returns an object
+var totalZikaInfections = getTotalZika(jsonData); // returns an integer
 var totalInfections = totalZikaInfections + totalDengueInfections; // returns an integer
 //var zikaByProvince = getZikaByProvince(jsonData);
 
-/* End */
+console.log(totalInfections)
 
+
+/* End */
+/*
 app.get('/', (req, res) => res.render('index', { provincias: provinces, departamentos: departs, dengue: totalDengueInfections, zika: totalZikaInfections}));
 
 
-app.listen(3000, (req, res) => console.log('port 3000 listening...'));
+app.listen(3000, (req, res) => console.log('port 3000 listening...'));*/
