@@ -6,19 +6,13 @@
 
   <title>Info Zika y Dengue</title>
 
-  <!-- Import scripts -->
-
-  <script type="text/javascript" src="./scripts.js">
-    console.log(provincias)
-  </script>
-
   <!-- jQuery CDN -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   <!--Load the AJAX API-->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-  <!-- Load 3D charts -->
+<!-- 
+   Load 3D charts
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
       <script type="text/javascript">
         google.charts.load("current", {packages:["corechart"]});
@@ -38,8 +32,8 @@
           var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
           chart.draw(data, options);
         }
-  </script>
-
+  </script> -->
+<!--
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
       <script type="text/javascript">
         google.charts.load("current", {packages:["corechart"]});
@@ -69,8 +63,8 @@
           var chart = new google.visualization.PieChart(document.getElementById('piechart_3d_1'));
           chart.draw(data, options);
         }
-  </script>
-
+  </script> -->
+<!--
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
       <script type="text/javascript">
         google.charts.load("current", {packages:["corechart"]});
@@ -92,7 +86,7 @@
           chart.draw(data, options);
         }
   </script>
-
+ -->
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -101,8 +95,6 @@
 
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-  <script type="text/javascript" src="lss.js"></script>
 
   <link rel="stylesheet" type="text/css" href="./css/style.css">
   <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -139,10 +131,11 @@
             <h3 class="text-center">Provincias afectadas</h3>
             <div class="div-prov-loc">
               <ul class="list-group">
-                <!-- <li class="list-group-item">Cras justo odio</li> -->
+
                 <%for(let i=0; i<provincias.length; i++) {%>
-                <li class="list-group-item" id="<%= provincias[i] %>"><a> <%= provincias[i]%></a> </li>
+                <li class="list-group-item" id="<%= provincias[i] %>"><a><%= provincias[i] %></a></li>
                 <%}%>
+              
               </ul>
             </div>
           </div>
@@ -150,7 +143,7 @@
           <div class="col-sm-12 col-md-6">
             <h3 class="text-center">Localidades afectadas</h3>
             <div class="div-prov-loc">
-              <ul class="list-group">
+              <ul class="list-group-loc">
                <li>texto</li>               
               </ul>
             </div>
@@ -193,7 +186,7 @@
                   <form class="form-horizontal">
                     <div class="form-group">
                       <label for="exampleInputName2">Nombre</label>
-                      <input type="text" class="form-control" id="exampleInputName2" placeholder="Juan">
+                      <input type="text" class="form-control" id="exampleInputName2" placeholder="Manuel">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail2">Correo</label>
@@ -222,10 +215,24 @@
 
   <!-- local js -->
   <script type="text/javascript">
-    document.getElementById("Buenos Aires").addEventListener('click', () => alert('Clicked'));
+    /*document.getElementById("Buenos Aires").addEventListener('click', () => alert('Clicked'));
     for(let i = 0; i<provincias.length; i++) {
       console.log(provincias[i]);
+    }*/
+    var lss = [];
+    var listGroup = document.getElementsByClassName('list-group')[0];
+    /*console.log(listGroup.getElementsByTagName('li'));*/
+
+    for(let i = 0; i<listGroup.getElementsByTagName('li')['length']; i++) {
+      lss.push(listGroup.getElementsByTagName('li')[i]['id']);
     }
+    console.log("id's catched...")
+    console.log(lss)
+
+    for(let i = 0; i<lss.length; i++) {
+      document.getElementById(lss[i]).addEventListener('click', () => alert('Clicked'));
+    }
+
   </script>
 
   <script>
