@@ -117,8 +117,9 @@ exports.provincias = provinces;
 exports.departamentos = departs;
 
 /* End */
-
+/*
 app.get('/', (req, res) => res.render('index', { provincias: provinces, departamentos: departs, dengue: totalDengueInfections, zika: totalZikaInfections}));
 
 
 app.listen(3000, (req, res) => console.log('port 3000 listening...'));
+*/
