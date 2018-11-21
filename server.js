@@ -7,12 +7,15 @@ var http = require('http')
 var fs = require('fs');
 var path = require('path');
 var csvjson = require('csvjson');
-
 var bodyParser = require('body-parser');
+var codes = require('./js/codes.js');
 
 app.use(express.static('./public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
+
+var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
+
 
 // ******************************************************** //
 /*
@@ -37,89 +40,15 @@ fs.writeFileSync('./json/final-json.in', data);
 */
 // ******************************************************** //
 
-var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
-
-
-var isIn = (elem, arr) => {
-  return(arr.indexOf(elem) != -1);
-}
-
-var getProvinces = (jss) => {
-  let provinces = [];
-  for(let i = 0; i<jss.length; i++) {
-      if(!isIn(jss[i].provincia_nombre, provinces)){
-          provinces.push(jss[i].provincia_nombre);
-      }
-  }
-  return provinces;
-}
-
-var getDeparts = (jss) => {
-  let departs = [];
-  for(let i = 0; i<jss.length; i++) {
-    if(departs.indexOf(jss[i].departamento_nombre) == -1) {
-      departs.push(jss[i].departamento_nombre)
-    }
-  }
-  return departs;
-}
-
-var getDepsByProv = (prov, jss) => {
-  let lss = []
-  for(let i = 0; i<jss.length; i++) {
-    if(jss[i].provincia_nombre == prov && lss.indexOf(jss[i].departamento_nombre) == -1) {
-      lss.push(jss[i].departamento_nombre);
-    }
-  }
-  return lss;
-}
-
-var getDepsOfProvs = (jss) => {
-  let provs = getProvinces(jss);
-  let result = [];
-
-  for(let i = 0; i<provs.length; i++) {
-    let liss = getDepsByProv(provs[i], jss);
-    result.push({ provincia: provs[i], departamentos: liss });
-  }
-  return result;
-}
-
-var getTotalDengue = (jss) => {
-  let totalDengue = 0;
-  let result = 0;
-  for(let i = 0; i<jss.length; i++) {
-    if(jss[i].evento_nombre == 'Dengue') {
-      totalDengue += Number(jss[i].cantidad_casos);
-    }
-  }
-  return totalDengue;
-}
-
-var getTotalZika = (jss) => {
-  let totalZika = 0;
-  for(let i = 0; i<jss.length; i++) {
-    if(jss[i].evento_nombre == 'Enfermedad por Virus del Zika') {
-      totalZika += Number(jss[i].cantidad_casos);
-    }
-  }
-  return totalZika;
-}
-
-var provinces = getProvinces(jsonData); // returns an array
-var departs = getDeparts(jsonData); // returns an object
-var totalDengueInfections = getTotalDengue(jsonData); // returns an object
-var totalZikaInfections = getTotalZika(jsonData); // returns an integer
+var provinces = codes.getProvinces(jsonData); // returns an array
+var departs = codes.getDeparts(jsonData); // returns an object
+var totalDengueInfections = codes.getTotalDengue(jsonData); // returns an object
+var totalZikaInfections = codes.getTotalZika(jsonData); // returns an integer
 var totalInfections = totalZikaInfections + totalDengueInfections; // returns an integer
+var depsCaba = codes.getDepsByProv_('Buenos Aires');
 //var zikaByProvince = getZikaByProvince(jsonData);
 
-exports.provincias = provinces;
-exports.departamentos = departs;
-
 /* End */
-/*
+
 app.get('/', (req, res) => res.render('index', { provincias: provinces, departamentos: departs, dengue: totalDengueInfections, zika: totalZikaInfections}));
-
-
 app.listen(3000, (req, res) => console.log('port 3000 listening...'));
-*/
