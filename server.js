@@ -113,6 +113,9 @@ var totalZikaInfections = getTotalZika(jsonData); // returns an integer
 var totalInfections = totalZikaInfections + totalDengueInfections; // returns an integer
 //var zikaByProvince = getZikaByProvince(jsonData);
 
+exports.provincias = provinces;
+exports.departamentos = departs;
+
 /* End */
 
 app.get('/', (req, res) => res.render('index', { provincias: provinces, departamentos: departs, dengue: totalDengueInfections, zika: totalZikaInfections}));

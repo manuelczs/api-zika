@@ -6,6 +6,12 @@
 
   <title>Info Zika y Dengue</title>
 
+  <!-- Import scripts -->
+
+  <script type="text/javascript" src="./scripts.js">
+    console.log(provincias)
+  </script>
+
   <!-- jQuery CDN -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -217,6 +223,9 @@
   <!-- local js -->
   <script type="text/javascript">
     document.getElementById("Buenos Aires").addEventListener('click', () => alert('Clicked'));
+    for(let i = 0; i<provincias.length; i++) {
+      console.log(provincias[i]);
+    }
   </script>
 
   <script>
