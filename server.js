@@ -1,6 +1,5 @@
 var express = require('express');
 var app = express();
-var URL_CSV = 'http://datos.salud.gob.ar/dataset/ceaa8e87-297e-4348-84b8-5c643e172500/resource/318834df-656d-4e71-9e87-195ebd96a0f8/download/informacion-publica-dengue-zika-nacional-hasta-20180821v2.csv';
 var request = require('request');
 var csv = require('csvtojson');
 var http = require('http')
@@ -8,14 +7,11 @@ var fs = require('fs');
 var path = require('path');
 var csvjson = require('csvjson');
 var bodyParser = require('body-parser');
-var codes = require('./js/codes.js');
+var routes = require('./routes');
 
 app.use(express.static('./public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
-
-var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
-
 
 // ******************************************************** //
 /*
@@ -34,21 +30,14 @@ var options = {
   quote: '"'
 };
 var file_data = fs.readFileSync('./csv/file.csv', { encoding: 'utf8' });
-var json_result = csvjson.toObject(file_data, options);
+var json_result = csvjson.toObject(file_+data, options);
 var data = JSON.stringify(json_result);
 fs.writeFileSync('./json/final-json.in', data);
 */
 // ******************************************************** //
 
-var provinces = codes.getProvinces(jsonData); // returns an array
-var departs = codes.getDeparts(jsonData); // returns an object
-var totalDengueInfections = codes.getTotalDengue(jsonData); // returns an object
-var totalZikaInfections = codes.getTotalZika(jsonData); // returns an integer
-var totalInfections = totalZikaInfections + totalDengueInfections; // returns an integer
-var depsCaba = codes.getDepsByProv_('Buenos Aires');
-//var zikaByProvince = getZikaByProvince(jsonData);
-
 /* End */
 
-app.get('/', (req, res) => res.render('index', { provincias: provinces, departamentos: departs, dengue: totalDengueInfections, zika: totalZikaInfections}));
+
+app.use(routes);
 app.listen(3000, (req, res) => console.log('port 3000 listening...'));

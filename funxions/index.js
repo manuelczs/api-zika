@@ -1,8 +1,3 @@
-var fs = require('fs');
-var path = require('path');
-var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
-
-
 var isIn = (elem, arr) => {
     return(arr.indexOf(elem) != -1);
   }
@@ -21,23 +16,23 @@ var getDepsByProv = (prov, jss) => {
 module.exports = {
 
   getProvinces: (jss) => {
-    let provinces = [];
+    let value = [];
     for(let i = 0; i<jss.length; i++) {
-        if(!isIn(jss[i].provincia_nombre, provinces)){
-            provinces.push(jss[i].provincia_nombre);
+        if(!isIn(jss[i].provincia_nombre, value)){
+            value.push(jss[i].provincia_nombre);
         }
     }
-    return provinces;
+    return { provinces: value };
   },
 
   getDeparts: (jss) => {
-    let departs = [];
+    let deps = [];
     for(let i = 0; i<jss.length; i++) {
-      if(departs.indexOf(jss[i].departamento_nombre) == -1) {
-        departs.push(jss[i].departamento_nombre)
+      if(deps.indexOf(jss[i].departamento_nombre) == -1) {
+        deps.push(jss[i].departamento_nombre)
       }
     }
-    return departs;
+    return { departaments: deps };
   },
 
   getDepsByProv: (prov, jss) => {
@@ -47,7 +42,10 @@ module.exports = {
         lss.push(jss[i].departamento_nombre);
       }
     }
-    return lss;
+    return { 
+      deps: lss,
+      length: lss.length
+    };
   },
 
   getDepsOfProvs: (jss) => {
@@ -69,7 +67,7 @@ module.exports = {
         totalDengue += Number(jss[i].cantidad_casos);
       }
     }
-    return totalDengue;
+    return {totalDengue};
   },
 
   getTotalZika: (jss) => {
@@ -79,13 +77,7 @@ module.exports = {
         totalZika += Number(jss[i].cantidad_casos);
       }
     }
-    return totalZika;
+    return {totalZika};
   },
-
-  getDepsByProv_: (prov) => {
-    let provs = [];
-    provs = getDepsByProv(prov, jsonData);
-    return provs;
-  }
 
 };
