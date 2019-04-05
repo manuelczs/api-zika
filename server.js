@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var morgan = require('morgan');
 var request = require('request');
 var csv = require('csvtojson');
 var http = require('http');
@@ -12,6 +13,7 @@ var port = 3000;
 var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
 
 app.set('port', process.env.PORT || 3000);
+app.use(morgan('dev'));
 app.use(express.static('./public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');

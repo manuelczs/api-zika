@@ -52,8 +52,6 @@
           </div>
         </div>
 
-        <hr>
-
         <div class="row">
           <div class="col-sm-12 col-md-6">
             <h3 class="text-center">Provincias afectadas</h3>
@@ -73,12 +71,12 @@
             </div>
           </div>
 
-          <div class="col-sm-12 col-md-3 totales">
-            <p>Total casos de Dengue: </p>
+          <div class="col-sm-12 col-md-3 totales" id="total-dengue">
+            
           </div>
 
-          <div class="col-sm-12 col-md-3 totales">
-            <p>Total casos de Zika: </p>
+          <div class="col-sm-12 col-md-3 totales" id="total-zika">
+            
           </div>
 
         </div>
@@ -159,11 +157,25 @@
 
   <script>
     $.ajaxSetup({ async: false });
+    var totalDengue = $.getJSON('api/total_dengue').responseJSON.totalDengue;
+    var totalZika = $.getJSON('api/total_zika').responseJSON.totalZika;
     var provinces = $.getJSON('api/provinces').responseJSON.provinces;
     var departaments = $.getJSON('api/departaments').responseJSON.departaments;
 
     var ul_prov = document.getElementById('ul-id-prov');
     var ul_deps = document.getElementById('ul-id-deps');
+    
+    var dengue_total = document.getElementById('total-dengue');
+    var nodeTotalDengue = document.createElement('p');
+    var elemTotalDengue = document.createTextNode('Total casos de Dengue: ' + totalDengue);
+    nodeTotalDengue.appendChild(elemTotalDengue);
+    dengue_total.appendChild(nodeTotalDengue);
+
+    var zika_total = document.getElementById('total-zika');
+    var nodeTotalZika = document.createElement('p');
+    var elemTotalZika = document.createTextNode('Total casos de Zika: ' + totalZika);
+    nodeTotalZika.appendChild(elemTotalZika);
+    zika_total.appendChild(nodeTotalZika);
 
     for(let i=0; i<departaments.length; i++) {
       let node = document.createElement('li');
