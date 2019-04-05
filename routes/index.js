@@ -32,4 +32,8 @@ routes.get('/api/total_zika', (req, res) => {
   res.status(200).json(codes.getTotalZika(jsonData));
 });
 
+routes.get('/api/departaments', (req, res) => {
+  res.status(200).json(codes.getDeparts(jsonData));
+});
+
 module.exports = routes;

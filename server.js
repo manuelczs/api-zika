@@ -40,7 +40,6 @@ fs.writeFileSync('./json/final-json.in', data);
 
 /* End */
 
-
 app.use(routes);
 app.get('/', (req, res) => {
   res.render('index');

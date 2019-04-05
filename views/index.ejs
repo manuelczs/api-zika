@@ -130,8 +130,8 @@
           <div class="col-sm-12 col-md-6">
             <h3 class="text-center">Provincias afectadas</h3>
             <div class="div-prov-loc">
-              <ul class="list-group" id="ul-id">
-                
+              <ul class="list-group" id="ul-id-prov">
+                <!-- Auto generated li -->
               </ul>
             </div>
           </div>
@@ -139,7 +139,7 @@
           <div class="col-sm-12 col-md-6">
             <h3 class="text-center">Localidades afectadas</h3>
             <div class="div-prov-loc">
-              <ul class="list-group-loc">
+              <ul class="list-group-loc" id="ul-id-deps">
                 <!-- Auto generated li -->
               </ul>
             </div>
@@ -229,13 +229,26 @@
 
   <script>
     $.ajaxSetup({ async: false });
-    var provinces = $.getJSON('api/provinces');
-    console.log(typef(provinces));
-    var body_dom = document.getElementById('ul-id');
+    var provinces = $.getJSON('api/provinces').responseJSON.provinces;
+    var departaments = $.getJSON('api/departaments').responseJSON.departaments;
 
-    for(let i=0; i<listProvinces.length; i++) {
-      console.log(listProvinces[i]);
-      console.log('texto');
+    var ul_prov = document.getElementById('ul-id-prov');
+    var ul_deps = document.getElementById('ul-id-deps');
+
+    for(let i=0; i<departaments.length; i++) {
+      let node = document.createElement('li');
+      let new_elem = document.createTextNode(departaments[i]);
+      node.appendChild(new_elem);
+      document.getElementById('ul-id-deps').appendChild(node);
+      document.getElementById('ul-id-deps').setAttribute('class', 'list-group-item');
+    }
+
+    for(let i=0; i<provinces.length; i++) {
+      let node = document.createElement('li');
+      let new_elem = document.createTextNode(provinces[i]);
+      node.appendChild(new_elem);
+      document.getElementById('ul-id-prov').appendChild(node);
+      document.getElementById('ul-id-prov').setAttribute('class', 'list-group-item');
     }
 
   </script>
