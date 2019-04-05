@@ -130,12 +130,8 @@
           <div class="col-sm-12 col-md-6">
             <h3 class="text-center">Provincias afectadas</h3>
             <div class="div-prov-loc">
-              <ul class="list-group">
-
-                <%for(let i=0; i<provincias.length; i++) {%>
-                <li class="list-group-item" id="<%= provincias[i] %>"><a><%= provincias[i] %></a></li>
-                <%}%>
-              
+              <ul class="list-group" id="ul-id">
+                
               </ul>
             </div>
           </div>
@@ -144,17 +140,15 @@
             <h3 class="text-center">Localidades afectadas</h3>
             <div class="div-prov-loc">
               <ul class="list-group-loc">
-                              
+                <!-- Auto generated li -->
               </ul>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-3 totales">
-            Casos totales de Dengue: <%=dengue %>
           </div>
 
           <div class="col-sm-12 col-md-3 totales">
-            Casos totales de Zika: <%=zika %>
           </div>
 
         </div>
@@ -212,26 +206,6 @@
   </div>
   <!-- end main Row -->
 
-
-  <!-- local js -->
-  <script type="text/javascript" src="js/codes.js"></script>
-  <script>
-
-    var lss = [];
-    var listGroup = document.getElementsByClassName('list-group')[0];
-    /*console.log(listGroup.getElementsByTagName('li'));*/
-
-    for(let i = 0; i<listGroup.getElementsByTagName('li')['length']; i++) {
-      lss.push(listGroup.getElementsByTagName('li')[i]['id']);
-    }
-    console.log("id's catched...")
-    console.log(isIn(4,[4,6]))
-    for(let i = 0; i<lss.length; i++) {
-      document.getElementById(lss[i]).addEventListener('click', () => alert('Clicked'));
-    }
-
-  </script>
-
   <script>
       // Initialize and add the map
       function initMap() {
@@ -249,8 +223,22 @@
     * The key parameter will contain your own API key (which is not needed for this tutorial)
     * The callback parameter executes the initMap() function
     -->
-    <script async defer
+  <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=----AIzaSyBVLrCMa-XmuVYPDsQqGn8Veantsp1w8bc&callback=initMap">
-    </script>
+  </script>
+
+  <script>
+    $.ajaxSetup({ async: false });
+    var provinces = $.getJSON('api/provinces');
+    console.log(typef(provinces));
+    var body_dom = document.getElementById('ul-id');
+
+    for(let i=0; i<listProvinces.length; i++) {
+      console.log(listProvinces[i]);
+      console.log('texto');
+    }
+
+  </script>
+
 </body>
 </html>

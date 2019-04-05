@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var request = require('request');
 var csv = require('csvtojson');
-var http = require('http')
+var http = require('http');
 var fs = require('fs');
 var path = require('path');
 var csvjson = require('csvjson');
@@ -40,4 +40,7 @@ fs.writeFileSync('./json/final-json.in', data);
 
 
 app.use(routes);
+app.get('/', (req, res) => {
+  res.render('index');
+})
 app.listen(3000, (req, res) => console.log('port 3000 listening...'));
