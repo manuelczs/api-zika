@@ -365,6 +365,10 @@ a:hover {
 	padding: 0;
 }
 
+.cruz {
+  height: 90px;
+}
+
 .div-prov-loc {
 	padding: 15px;
 	height: 400px;

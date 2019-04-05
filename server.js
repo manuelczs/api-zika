@@ -9,6 +9,7 @@ var csvjson = require('csvjson');
 var bodyParser = require('body-parser');
 var routes = require('./routes');
 var port = 3000;
+var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
 
 app.set('port', process.env.PORT || 3000);
 app.use(express.static('./public'));
@@ -39,6 +40,7 @@ fs.writeFileSync('./json/final-json.in', data);
 // ******************************************************** //
 
 /* End */
+
 
 app.use(routes);
 app.get('/', (req, res) => {

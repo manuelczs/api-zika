@@ -11,82 +11,6 @@
 
   <!--Load the AJAX API-->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<!-- 
-   Load 3D charts
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-      <script type="text/javascript">
-        google.charts.load("current", {packages:["corechart"]});
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-          var data = google.visualization.arrayToDataTable([
-            ['Task', 'Hours per Day'],
-            ['Dengue',     627],
-            ['Zika',      34]
-          ]);
-
-          var options = {
-            title: 'Casos de Dengue y Zika en toda la Argentina',
-            is3D: true,
-          };
-
-          var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-          chart.draw(data, options);
-        }
-  </script> -->
-<!--
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-      <script type="text/javascript">
-        google.charts.load("current", {packages:["corechart"]});
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-          var data = google.visualization.arrayToDataTable([
-            ['Task', 'Hours per Day'],
-            ['Buenos Aires',     11],
-            ['CABA',     11],
-            ['Chaco',     11],
-            ['Cordoba',     11],
-            ['Corrientes',     11],
-            ['Entre Rios',     11],
-            ['Formosa',     11],
-            ['Misiones',     11],
-            ['Salta',     11],
-            ['Santa Fe',     11],
-            ['Tucuman',     11],
-            ['Santiago del Estero',     11]
-          ]);
-
-          var options = {
-            title: 'Casos de Dengue y Zika por provincias',
-            is3D: true,
-          };
-
-          var chart = new google.visualization.PieChart(document.getElementById('piechart_3d_1'));
-          chart.draw(data, options);
-        }
-  </script> -->
-<!--
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-      <script type="text/javascript">
-        google.charts.load("current", {packages:["corechart"]});
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-          var data = google.visualization.arrayToDataTable([
-            ['Task', 'Hours per Day'],
-            ['La Matanza',     11],
-            ['Lanus',      2],
-            ['Lomas de Zamora',      5]
-          ]);
-
-          var options = {
-            title: 'Casos de Dengue y Zika por Localidades',
-            is3D: true,
-          };
-
-          var chart = new google.visualization.PieChart(document.getElementById('piechart_3d_2'));
-          chart.draw(data, options);
-        }
-  </script>
- -->
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -111,6 +35,10 @@
         <div class="col-sm-12 text-center header">
           <h1>CASOS DE DENGUE Y ZIKA EN LA REPUBLICA ARGENTINA</h1>
           <p><h4>Datos obtenidos del Ministerio de Salud y Desarrollo Social. Secretaría de Promoción de la Salud, Prevención y Control de Riesgos. Subsecretaría de Prevención y Control de Enfermedades Comunicables e Inmunoprevenibles. Dirección Nacional de Epidemiología y Análisis de la Situación de Salud. Área de Vigilancia.</h4></p>
+          <hr>
+          <div>
+            <img src="./img/cruz.png" alt="cruz" class="cruz">
+          </div>
         </div>
 
         <div class="col-sm-12 bar">          
@@ -146,23 +74,25 @@
           </div>
 
           <div class="col-sm-12 col-md-3 totales">
+            <p>Total casos de Dengue: </p>
           </div>
 
           <div class="col-sm-12 col-md-3 totales">
+            <p>Total casos de Zika: </p>
           </div>
 
         </div>
-
+        <!--
         <hr>
 
         <div class="row">
           <div class="col-sm-12 col-md-4" id="piechart_3d" style="width: 100%; height: 300px">
-             <!-- <div id="piechart_3d" style="width: 900px; height: 500px;"></div> -->
+             <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
           </div>
           <div class="col-sm-12 col-md-4" id="piechart_3d_1" style="width: 100%; height: 300px"></div>
           <div class="col-sm-12 col-md-4" id="piechart_3d_2" style="width: 100%; height: 300px"></div>
         </div>
-
+        -->
         <hr>
 
          <div class="row">
