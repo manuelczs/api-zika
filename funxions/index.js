@@ -12,7 +12,6 @@ var getDepsByProv = (prov, jss) => {
     return lss;
 }
 
-
 module.exports = {
 
   getProvinces: (jss) => {

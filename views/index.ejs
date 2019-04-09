@@ -135,6 +135,7 @@
   <!-- end main Row -->
 
   <script>
+      $.ajaxSetup({ async: false });
       // Initialize and add the map
       function initMap() {
         // The location of Uluru
@@ -143,7 +144,28 @@
         var map = new google.maps.Map(
             document.getElementById('map'), {zoom: 5, center: argentina});
         // The marker, positioned at Uluru
-        var marker = new google.maps.Marker({position: argentina, map: map});
+        var provinces = $.getJSON('/api/provinces').responseJSON.provinces;
+        var provs_country = [];
+        var provs_coords = [];
+
+        for(let i=0; i<provinces.length; i++) {
+          provs_country.push(provinces[i] + ', Argentina');
+        }
+        API_KEY = "AIzaSyB-1VoMt3SNSzzSx1rxHLnIjaDr4tQUQyk";
+
+        for(let i=0; i<provinces.length; i++) {
+          let LOCATION = provs_country[i];
+          url_api = `https://maps.googleapis.com/maps/api/geocode/json?address=${LOCATION}&key=${API_KEY}`;
+          
+          let position = $.getJSON(url_api).responseJSON.results[0].geometry.location;
+          provs_coords.push(position);
+        }
+
+        for(let i=0; i<provs_coords.length; i++) {
+          var marker = new google.maps.Marker({position: provs_coords[i], map: map});
+        }
+
+        // var marker = new google.maps.Marker({position: argentina, map: map});
       }
   </script>
     <!--Load the API from the specified URL
@@ -152,7 +174,7 @@
     * The callback parameter executes the initMap() function
     -->
   <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=----AIzaSyBVLrCMa-XmuVYPDsQqGn8Veantsp1w8bc&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVLrCMa-XmuVYPDsQqGn8Veantsp1w8bc&callback=initMap">
   </script>
 
   <script>
@@ -177,10 +199,22 @@
     nodeTotalZika.appendChild(elemTotalZika);
     zika_total.appendChild(nodeTotalZika);
 
+    var exec = (ele) => {
+      alert('Alert ' + ele);
+    }
+
     for(let i=0; i<departaments.length; i++) {
       let node = document.createElement('li');
       let new_elem = document.createTextNode(departaments[i]);
+      node.setAttribute('id', departaments[i]);
       node.appendChild(new_elem);
+      node.addEventListener('click', () => {
+        API_KEY = 'AIzaSyB-1VoMt3SNSzzSx1rxHLnIjaDr4tQUQyk';
+        LOCATION = 'Jujuy, AR'
+        // url_api = "https://maps.googleapis.com/maps/api/geocode/json?address=Jujuy,+AR&key=AIzaSyB-1VoMt3SNSzzSx1rxHLnIjaDr4tQUQyk"
+        var coords = $.get(url_api);
+        console.log(coords);
+      });
       document.getElementById('ul-id-deps').appendChild(node);
       document.getElementById('ul-id-deps').setAttribute('class', 'list-group-item');
     }
@@ -188,6 +222,7 @@
     for(let i=0; i<provinces.length; i++) {
       let node = document.createElement('li');
       let new_elem = document.createTextNode(provinces[i]);
+      node.setAttribute('id', provinces[i]);
       node.appendChild(new_elem);
       document.getElementById('ul-id-prov').appendChild(node);
       document.getElementById('ul-id-prov').setAttribute('class', 'list-group-item');
