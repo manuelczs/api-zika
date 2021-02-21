@@ -9,10 +9,9 @@ var path = require('path');
 var csvjson = require('csvjson');
 var bodyParser = require('body-parser');
 var routes = require('./routes');
-var port = 3000;
-var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
+var port = 4000;
+//var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
 
-app.set('port', process.env.PORT || 3000);
 app.use(morgan('dev'));
 app.use(express.static('./public'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -43,9 +42,8 @@ fs.writeFileSync('./json/final-json.in', data);
 
 /* End */
 
-
 app.use(routes);
 app.get('/', (req, res) => {
-  res.render('index');
-})
-app.listen(3000, (req, res) => console.log('port 3000 listening...'));
+  res.render('index', { text: 'text-1', text1: 'text-2' });
+});
+app.listen(port, () => console.log('port 3000 listening...'));

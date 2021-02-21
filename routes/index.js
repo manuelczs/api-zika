@@ -3,13 +3,13 @@ var routes = express();
 var fs = require('fs');
 var router = express.Router();
 var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
-var codes = require('../funxions');
+var codes = require('../services');
 
 // set the Router Middleware
 routes.use(router);
 
 routes.get('/api/provinces', (req, res) => {
-  if(jsonData) {
+  if (jsonData) {
     res.status(200).json(codes.getProvinces(jsonData));
   } else {
     res.send('Nothing here');
