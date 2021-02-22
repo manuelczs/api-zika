@@ -46,8 +46,4 @@ app.get('/', (req, res) => {
   res.render('index', { text: 'text-1', text1: 'text-2' });
 });
 
-app.get('/map', (req, res) => {
-  res.render('map', { title: 'Map' });
-});
-
 app.listen(port, () => console.log('port 3000 listening...'));

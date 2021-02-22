@@ -121,10 +121,7 @@
                   <br><br>
         </div>
 
-
-
         <div class="col-sm-12 bar">
-          
         </div>
 
     </div> <!-- end main row -->
@@ -149,7 +146,8 @@
         for(let i=0; i<provinces.length; i++) {
           provs_country.push(provinces[i] + ', Argentina');
         }
-        API_KEY = "AIzaSyAUYDtv51kgaUx_wEw3bfWkoSiYrXuKGlA";
+        //API_KEY = "AIzaSyAUYDtv51kgaUx_wEw3bfWkoSiYrXuKGlA";
+        API_KEY = ''
 
         for(let i=0; i<provinces.length; i++) {
           let LOCATION = provs_country[i];
@@ -207,9 +205,9 @@
       node.setAttribute('id', departaments[i]);
       node.appendChild(new_elem);
       node.addEventListener('click', () => {
-        API_KEY = 'AIzaSyB-1VoMt3SNSzzSx1rxHLnIjaDr4tQUQyk';
+        //API_KEY = 'AIzaSyB-1VoMt3SNSzzSx1rxHLnIjaDr4tQUQyk';
+        API_KEY = ''
         LOCATION = 'Jujuy, AR'
-        // url_api = "https://maps.googleapis.com/maps/api/geocode/json?address=Jujuy,+AR&key=AIzaSyB-1VoMt3SNSzzSx1rxHLnIjaDr4tQUQyk"
         var coords = $.get(url_api);
         console.log(coords);
       });
@@ -229,4 +227,7 @@
   </script>
 
 </body>
+<footer>
+    <small>Dengue Counter - Copyright 2021</small>
+</footer>
 </html>
