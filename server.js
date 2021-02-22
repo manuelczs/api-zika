@@ -1,14 +1,13 @@
 var express = require('express');
 var app = express();
 var morgan = require('morgan');
-var request = require('request');
 var csv = require('csvtojson');
 var http = require('http');
 var fs = require('fs');
 var path = require('path');
 var csvjson = require('csvjson');
 var bodyParser = require('body-parser');
-var routes = require('./routes');
+var api = require('./routes');
 var port = 4000;
 //var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
 
@@ -42,8 +41,13 @@ fs.writeFileSync('./json/final-json.in', data);
 
 /* End */
 
-app.use(routes);
+app.use(api);
 app.get('/', (req, res) => {
   res.render('index', { text: 'text-1', text1: 'text-2' });
 });
+
+app.get('/map', (req, res) => {
+  res.render('map', { title: 'Map' });
+});
+
 app.listen(port, () => console.log('port 3000 listening...'));
