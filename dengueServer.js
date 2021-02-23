@@ -8,7 +8,7 @@ var path = require('path');
 var csvjson = require('csvjson');
 var bodyParser = require('body-parser');
 var api = require('./routes');
-var port = 4000;
+var port = 6000;
 //var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
 
 app.use(morgan('dev'));
@@ -46,4 +46,4 @@ app.get('/', (req, res) => {
   res.render('index', { text: 'text-1', text1: 'text-2' });
 });
 
-app.listen(port, () => console.log('port 3000 listening...'));
+app.listen(port, () => console.log(`port ${port} listening...`));
