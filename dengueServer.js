@@ -12,7 +12,7 @@ var port = 6000;
 //var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
 
 app.use(morgan('dev'));
-app.use(express.static('./public'));
+app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
