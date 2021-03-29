@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
-    "start": "node dengueServer.js"
+    "start": "nodemon --exec babel-node server.js",
+    "test": "jest"
   },
   "author": "ManuelCañizares",
   "license": "MIT",
@@ -24,7 +24,12 @@
     "require": "^2.4.20"
   },
   "devDependencies": {
+    "@babel/core": "^7.13.13",
+    "@babel/node": "^7.13.13",
+    "@babel/preset-env": "^7.13.12",
+    "babel-jest": "^23.6.0",
     "jest": "^23.6.0",
+    "nodemon": "^2.0.7",
     "yarn": "^1.12.3"
   }
 }
