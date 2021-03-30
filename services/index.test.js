@@ -1,13 +1,20 @@
 const Services = require('./index');
 
-test('Empty list should return empty provinces', () => {
+test('Return an empty list.', () => {
   const newService = new Services();
   expect(newService.getProvinces([])).toEqual({ provinces: [] });
 });
 
-test('Contains an element', () => {
+test('Return a single province name.', () => {
   const newService = new Services();
-  expect(newService.getProvinces([{ provincia_nombre: 'Salta' }])).toEqual({
-    provinces: ['Salta'],
-  });
+  expect(newService.getProvinces([{ provincia_nombre: 'Kamtchatka' }])).toEqual(
+    {
+      provinces: ['Kamtchatka'],
+    }
+  );
+});
+
+test('Return an empty list -> departaments: []', () => {
+  const newService = new Services();
+  expect(newService.getDeparts([])).toEqual({ departaments: [] });
 });
