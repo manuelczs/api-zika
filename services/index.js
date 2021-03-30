@@ -1,6 +1,6 @@
-var isIn = (elem, arr) => {
+function isIn(elem, arr) {
   return arr.indexOf(elem) != -1;
-};
+}
 
 var getDepsByProv = (prov, jss) => {
   let lss = [];
@@ -15,8 +15,8 @@ var getDepsByProv = (prov, jss) => {
   return lss;
 };
 
-module.exports = {
-  getProvinces: (jss) => {
+class Services {
+  getProvinces(jss) {
     let value = [];
     for (let i = 0; i < jss.length; i++) {
       if (!isIn(jss[i].provincia_nombre, value)) {
@@ -24,9 +24,9 @@ module.exports = {
       }
     }
     return { provinces: value };
-  },
+  }
 
-  getDeparts: (jss) => {
+  getDeparts(jss) {
     let deps = [];
     for (let i = 0; i < jss.length; i++) {
       if (deps.indexOf(jss[i].departamento_nombre) == -1) {
@@ -34,9 +34,9 @@ module.exports = {
       }
     }
     return { departaments: deps };
-  },
+  }
 
-  getDepsByProv: (prov, jss) => {
+  getDepsByProv(prov, jss) {
     let lss = [];
     for (let i = 0; i < jss.length; i++) {
       if (
@@ -50,9 +50,9 @@ module.exports = {
       deps: lss,
       length: lss.length,
     };
-  },
+  }
 
-  getDepsOfProvs: (jss) => {
+  getDepsOfProvs(jss) {
     let provs = getProvinces(jss);
     let result = [];
 
@@ -61,9 +61,9 @@ module.exports = {
       result.push({ provincia: provs[i], departamentos: liss });
     }
     return result;
-  },
+  }
 
-  getTotalDengue: (jss) => {
+  getTotalDengue(jss) {
     let totalDengue = 0;
     let result = 0;
     for (let i = 0; i < jss.length; i++) {
@@ -72,9 +72,9 @@ module.exports = {
       }
     }
     return { totalDengue };
-  },
+  }
 
-  getTotalZika: (jss) => {
+  getTotalZika(jss) {
     let totalZika = 0;
     for (let i = 0; i < jss.length; i++) {
       if (jss[i].evento_nombre == 'Enfermedad por Virus del Zika') {
@@ -82,5 +82,7 @@ module.exports = {
       }
     }
     return { totalZika };
-  },
-};
+  }
+}
+
+module.exports = Services;
