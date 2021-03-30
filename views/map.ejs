@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-
   <meta charset="utf-8">
-
   <title>Info Zika y Dengue</title>
-
   <!-- jQuery CDN -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
   <!--Load the AJAX API-->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
@@ -27,12 +23,13 @@
 
   <!-- main Row -->
   <div class="row">
-
-    <div class="container-fluid">
+    <div class="container">
       <div class="row">
         <div class="col-sm-12 bar"></div>
-
+        
         <div class="col-sm-12 text-center header">
+          <div>
+          </div>
           <h1>CASOS DE DENGUE Y ZIKA EN LA REPUBLICA ARGENTINA</h1>
           <p><h4>Datos obtenidos del Ministerio de Salud y Desarrollo Social. Secretaría de Promoción de la Salud, Prevención y Control de Riesgos. Subsecretaría de Prevención y Control de Enfermedades Comunicables e Inmunoprevenibles. Dirección Nacional de Epidemiología y Análisis de la Situación de Salud. Área de Vigilancia.</h4></p>
           <hr>
@@ -41,9 +38,32 @@
           </div>
         </div>
 
-        <div class="col-sm-12 bar">          
+        <div class="col-sm-12 bar">
+          <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href=""></a>
+              </div>
+          
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <% navigation.map((link) => { %>
+                    <li><a href="<%= link.link  %>"><%= link.name %> </a></li>
+                  <% }) %> 
+                </ul>
+                
+              </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+          </nav>
         </div>
-
         <hr> <!-- end section -->
 
         <div class="row">
@@ -51,44 +71,6 @@
             <!-- Some text here -->
           </div>
         </div>
-
-        <div class="row">
-          <div class="col-sm-12 col-md-6">
-            <h3 class="text-center">Provincias afectadas</h3>
-            <div class="div-prov-loc">
-              <ul class="list-group" id="ul-id-prov">
-              </ul>
-            </div>
-          </div>
-
-          <div class="col-sm-12 col-md-6">
-            <h3 class="text-center">Localidades afectadas</h3>
-            <div class="div-prov-loc">
-              <ul class="list-group-loc" id="ul-id-deps">
-              </ul>
-            </div>
-          </div>
-
-          <div class="col-sm-12 col-md-3 totales" id="total-dengue">
-            
-          </div>
-
-          <div class="col-sm-12 col-md-3 totales" id="total-zika">
-            
-          </div>
-
-        </div>
-        <!--
-        <hr>
-
-        <div class="row">
-          <div class="col-sm-12 col-md-4" id="piechart_3d" style="width: 100%; height: 300px">
-             <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
-          </div>
-          <div class="col-sm-12 col-md-4" id="piechart_3d_1" style="width: 100%; height: 300px"></div>
-          <div class="col-sm-12 col-md-4" id="piechart_3d_2" style="width: 100%; height: 300px"></div>
-        </div>
-        -->
         <hr>
 
         <div class="row">
@@ -98,135 +80,62 @@
         </div>
 
         <hr>
-
-
-        <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                  <h3 class="text-center">Contacto - Sugerencias</h4>
-                  <form class="form-horizontal">
-                    <div class="form-group">
-                      <label for="exampleInputName2">Nombre</label>
-                      <input type="text" class="form-control" id="exampleInputName2" placeholder="Manuel">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail2">Correo</label>
-                      <input type="email" class="form-control" id="exampleInputEmail2" placeholder="micorreo@ejemplo.com">
-                    </div>
-                    <div class="form-group ">
-                      <label for="exampleInputText">Mensaje</label>
-                     <textarea  class="form-control" placeholder="Algun mensaje por aqui"></textarea> 
-                    </div>
-                    <button type="submit" class="btn btn-default">Enviar</button>
-                  </form>
-                  <br><br>
-        </div>
-
-
-
-        <div class="col-sm-12 bar">
-          
-        </div>
-
-    </div> <!-- end main row -->
-
+    <!-- end main row -->
   </div>
   <!-- end main Row -->
 
   <script>
+      let provinces = "<%= JSON.stringify(provinces) %>".split('&#34;').filter(item => item !== '[' && item !== ']' && item !== ',')
+      //let provs = "<%= JSON.stringify(provs_coords) %>"
+      let provs = [
+        { lat: -31.6106578, lng: -60.697294 },
+        { lat: -26.1857768, lng: -58.1755669 },
+        { lat: -27.4692131, lng: -58.8306349 },
+        { lat: -34.6036844, lng: -58.3815591 },
+        { lat: -24.7821269, lng: -65.4231976 },
+        { lat: -27.4269255, lng: -55.9467076 },
+        { lat: -27.7833574, lng: -64.264167 }
+      ]
+      
+      //console.log(provs + 'xxx')
       $.ajaxSetup({ async: false });
       // Initialize and add the map
       function initMap() {
-        // The location of Uluru
-        var argentina = {lat: -32, lng: -64};
-        // The map, centered at Uluru
-        var map = new google.maps.Map(
+        //const API_KEY = 'AIzaSyAUYDtv51kgaUx_wEw3bfWkoSiYrXuKGlA';
+
+        // The location of Argentina
+        let argentina = {lat: -32, lng: -64};
+        // The map, centered at Argentina
+        let map = new google.maps.Map(
             document.getElementById('map'), {zoom: 5, center: argentina});
-        // The marker, positioned at Uluru
-        var provinces = $.getJSON('/api/provinces').responseJSON.provinces;
-        var provs_country = [];
-        var provs_coords = [];
+        
+        // The marker, positioned at Argentina
+        //let provs_country = [];
+        //let provs_coords = [];
 
-        for(let i=0; i<provinces.length; i++) {
-          provs_country.push(provinces[i] + ', Argentina');
+        //for (let i = 0; i < provinces.length; i++) {
+        //  provs_country.push(provinces[i] + ', Argentina');
+        //}
+
+        //for (let i = 0; i < provinces.length; i++) {
+        //  let LOCATION = provs_country[i];
+        //  url_api = `//https://maps.googleapis.com/maps/api/geocode/json?address=${LOCATION}&key=${API_KEY}`;
+
+        //  let position = $.getJSON(url_api).responseJSON.results[0].geometry.location;
+        //  provs_coords.push(position);
+        //}
+
+        for(let i=0; i<provs.length; i++) {
+          let marker = new google.maps.Marker({position: provs[i], map});
         }
-        API_KEY = "AIzaSyB-1VoMt3SNSzzSx1rxHLnIjaDr4tQUQyk";
-
-        for(let i=0; i<provinces.length; i++) {
-          let LOCATION = provs_country[i];
-          url_api = `https://maps.googleapis.com/maps/api/geocode/json?address=${LOCATION}&key=${API_KEY}`;
-          
-          let position = $.getJSON(url_api).responseJSON.results[0].geometry.location;
-          provs_coords.push(position);
-        }
-
-        for(let i=0; i<provs_coords.length; i++) {
-          var marker = new google.maps.Marker({position: provs_coords[i], map: map});
-        }
-
-        // var marker = new google.maps.Marker({position: argentina, map: map});
       }
   </script>
-    <!--Load the API from the specified URL
-    * The async attribute allows the browser to render the page while the API loads
-    * The key parameter will contain your own API key (which is not needed for this tutorial)
-    * The callback parameter executes the initMap() function
-    -->
+
   <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVLrCMa-XmuVYPDsQqGn8Veantsp1w8bc&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVLrCMa-XmuVYPDsQqGn8Veantsp1w8bc&callback=initMap"></script>
   </script>
-
-  <script>
-    $.ajaxSetup({ async: false });
-    var totalDengue = $.getJSON('api/total_dengue').responseJSON.totalDengue;
-    var totalZika = $.getJSON('api/total_zika').responseJSON.totalZika;
-    var provinces = $.getJSON('api/provinces').responseJSON.provinces;
-    var departaments = $.getJSON('api/departaments').responseJSON.departaments;
-
-    var ul_prov = document.getElementById('ul-id-prov');
-    var ul_deps = document.getElementById('ul-id-deps');
-    
-    var dengue_total = document.getElementById('total-dengue');
-    var nodeTotalDengue = document.createElement('p');
-    var elemTotalDengue = document.createTextNode('Total casos de Dengue: ' + totalDengue);
-    nodeTotalDengue.appendChild(elemTotalDengue);
-    dengue_total.appendChild(nodeTotalDengue);
-
-    var zika_total = document.getElementById('total-zika');
-    var nodeTotalZika = document.createElement('p');
-    var elemTotalZika = document.createTextNode('Total casos de Zika: ' + totalZika);
-    nodeTotalZika.appendChild(elemTotalZika);
-    zika_total.appendChild(nodeTotalZika);
-
-    var exec = (ele) => {
-      alert('Alert ' + ele);
-    }
-
-    for(let i=0; i<departaments.length; i++) {
-      let node = document.createElement('li');
-      let new_elem = document.createTextNode(departaments[i]);
-      node.setAttribute('id', departaments[i]);
-      node.appendChild(new_elem);
-      node.addEventListener('click', () => {
-        API_KEY = 'AIzaSyB-1VoMt3SNSzzSx1rxHLnIjaDr4tQUQyk';
-        LOCATION = 'Jujuy, AR'
-        // url_api = "https://maps.googleapis.com/maps/api/geocode/json?address=Jujuy,+AR&key=AIzaSyB-1VoMt3SNSzzSx1rxHLnIjaDr4tQUQyk"
-        var coords = $.get(url_api);
-        console.log(coords);
-      });
-      document.getElementById('ul-id-deps').appendChild(node);
-      document.getElementById('ul-id-deps').setAttribute('class', 'list-group-item');
-    }
-
-    for(let i=0; i<provinces.length; i++) {
-      let node = document.createElement('li');
-      let new_elem = document.createTextNode(provinces[i]);
-      node.setAttribute('id', provinces[i]);
-      node.appendChild(new_elem);
-      document.getElementById('ul-id-prov').appendChild(node);
-      document.getElementById('ul-id-prov').setAttribute('class', 'list-group-item');
-    }
-
-  </script>
-
 </body>
+<footer>
+    <small>Dengue Counter - Copyright 2021</small>
+</footer>
 </html>
