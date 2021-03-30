@@ -1,6 +1,6 @@
 import express from 'express';
 import fs from 'fs';
-import services from '../services';
+import Services from '../services';
 
 var routes = express();
 var router = express.Router();
@@ -8,33 +8,56 @@ var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
 
 // set the Router Middleware
 routes.use(router);
+const services = new Services();
 
 routes.get('/api/provinces', (req, res) => {
-  if (jsonData) {
+  try {
     res.status(200).json(services.getProvinces(jsonData));
-  } else {
-    res.send('Nothing here');
+  } catch (e) {
+    res.status(500).send(e);
   }
 });
 
 routes.get('/api/departaments', (req, res) => {
-  res.status(200).json(services.getDeparts(jsonData));
+  try {
+    res.status(200).json(services.getDeparts(jsonData));
+  } catch (e) {
+    res.status(500).send(e);
+  }
 });
 
 routes.get('/api/deps_by_prov/:prov', (req, res) => {
-  res.status(200).json(services.getDepsByProv(`${req.params.prov}`, jsonData));
+  try {
+    res
+      .status(200)
+      .json(services.getDepsByProv(`${req.params.prov}`, jsonData));
+  } catch (e) {
+    res.status(500).send(e);
+  }
 });
 
 routes.get('/api/total_dengue', (req, res) => {
-  res.status(200).json(services.getTotalDengue(jsonData));
+  try {
+    res.status(200).json(services.getTotalDengue(jsonData));
+  } catch (e) {
+    res.status(500).send(e);
+  }
 });
 
 routes.get('/api/total_zika', (req, res) => {
-  res.status(200).json(services.getTotalZika(jsonData));
+  try {
+    res.status(200).json(services.getTotalZika(jsonData));
+  } catch (e) {
+    res.status(500).send(e);
+  }
 });
 
 routes.get('/api/departaments', (req, res) => {
-  res.status(200).json(services.getDeparts(jsonData));
+  try {
+    res.status(200).json(services.getDeparts(jsonData));
+  } catch (e) {
+    res.status(500).send(e);
+  }
 });
 
 module.exports = routes;
