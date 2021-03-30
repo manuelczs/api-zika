@@ -28,11 +28,14 @@
   <!-- main Row -->
   <div class="row">
 
-    <div class="container-fluid">
+    <div class="container">
+      
       <div class="row">
         <div class="col-sm-12 bar"></div>
-
+        
         <div class="col-sm-12 text-center header">
+          <div>
+          </div>
           <h1>CASOS DE DENGUE Y ZIKA EN LA REPUBLICA ARGENTINA</h1>
           <p><h4>Datos obtenidos del Ministerio de Salud y Desarrollo Social. Secretaría de Promoción de la Salud, Prevención y Control de Riesgos. Subsecretaría de Prevención y Control de Enfermedades Comunicables e Inmunoprevenibles. Dirección Nacional de Epidemiología y Análisis de la Situación de Salud. Área de Vigilancia.</h4></p>
           <hr>
@@ -41,9 +44,33 @@
           </div>
         </div>
 
-        <div class="col-sm-12 bar">          
-        </div>
+        <div class="col-sm-12 bar">
+          <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href=""></a>
+              </div>
+          
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
 
+                  <% navigation.map((link) => { %> 
+                    <li><a href="<%= link.link %>"><%= link.name %> </a></li>
+                  <% }) %>                  
+                </ul>
+                
+              </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+          </nav>
+        </div>
         <hr> <!-- end section -->
 
         <div class="row">
@@ -78,49 +105,7 @@
           </div>
 
         </div>
-        <!--
         <hr>
-
-        <div class="row">
-          <div class="col-sm-12 col-md-4" id="piechart_3d" style="width: 100%; height: 300px">
-             <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
-          </div>
-          <div class="col-sm-12 col-md-4" id="piechart_3d_1" style="width: 100%; height: 300px"></div>
-          <div class="col-sm-12 col-md-4" id="piechart_3d_2" style="width: 100%; height: 300px"></div>
-        </div>
-        -->
-        <hr>
-
-        <div class="row">
-          <div class="col-sm-12">
-            <div id="map"></div>
-          </div>
-        </div>
-
-        <hr>
-
-
-        <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                  <h3 class="text-center">Contacto - Sugerencias</h4>
-                  <form class="form-horizontal">
-                    <div class="form-group">
-                      <label for="exampleInputName2">Nombre</label>
-                      <input type="text" class="form-control" id="exampleInputName2" placeholder="Manuel">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail2">Correo</label>
-                      <input type="email" class="form-control" id="exampleInputEmail2" placeholder="micorreo@ejemplo.com">
-                    </div>
-                    <div class="form-group ">
-                      <label for="exampleInputText">Mensaje</label>
-                     <textarea  class="form-control" placeholder="Algun mensaje por aqui"></textarea> 
-                    </div>
-                    <button type="submit" class="btn btn-default">Enviar</button>
-                  </form>
-                  <br><br>
-        </div>
-
         <div class="col-sm-12 bar">
         </div>
 
@@ -128,50 +113,6 @@
 
   </div>
   <!-- end main Row -->
-
-  <script>
-      $.ajaxSetup({ async: false });
-      // Initialize and add the map
-      function initMap() {
-        // The location of Uluru
-        var argentina = {lat: -32, lng: -64};
-        // The map, centered at Uluru
-        var map = new google.maps.Map(
-            document.getElementById('map'), {zoom: 5, center: argentina});
-        // The marker, positioned at Uluru
-        var provinces = $.getJSON('/api/provinces').responseJSON.provinces;
-        var provs_country = [];
-        var provs_coords = [];
-
-        for(let i=0; i<provinces.length; i++) {
-          provs_country.push(provinces[i] + ', Argentina');
-        }
-        API_KEY = "AIzaSyAUYDtv51kgaUx_wEw3bfWkoSiYrXuKGlA";
-        //API_KEY = ''
-
-        for(let i=0; i<provinces.length; i++) {
-          let LOCATION = provs_country[i];
-          url_api = `https://maps.googleapis.com/maps/api/geocode/json?address=${LOCATION}&key=${API_KEY}`;
-          
-          let position = $.getJSON(url_api).responseJSON.results[0].geometry.location;
-          provs_coords.push(position);
-        }
-
-        for(let i=0; i<provs_coords.length; i++) {
-          var marker = new google.maps.Marker({position: provs_coords[i], map: map});
-        }
-
-        // var marker = new google.maps.Marker({position: argentina, map: map});
-      }
-  </script>
-    <!--Load the API from the specified URL
-    * The async attribute allows the browser to render the page while the API loads
-    * The key parameter will contain your own API key (which is not needed for this tutorial)
-    * The callback parameter executes the initMap() function
-    -->
-  <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVLrCMa-XmuVYPDsQqGn8Veantsp1w8bc&callback=initMap">
-  </script>
 
   <script>
     $.ajaxSetup({ async: false });
