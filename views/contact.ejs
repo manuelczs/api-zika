@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-
   <meta charset="utf-8">
-
   <title>Info Zika y Dengue</title>
-
   <!-- jQuery CDN -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
   <!--Load the AJAX API-->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
@@ -16,18 +12,14 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <!-- Optional theme -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
   <link rel="stylesheet" type="text/css" href="./css/style.css">
   <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </head>
 <body>
-
   <!-- main Row -->
   <div class="row">
-
     <div class="container">
       
       <div class="row">
@@ -72,24 +64,29 @@
           </nav>
         </div>
         <hr> <!-- end section -->
-
         <div class="row">
-          <div class="col">
-            <!-- Some text here -->
-          </div>
         </div>
-
         <hr>
         <div class="col-sm-12 bar">
+          <div class="col mt-3">
+            <form>
+              <div class="form-group">
+                <label for="name">Tu nombre</label>
+                <input type="text" class="form-control" id="name" placeholder="Name">
+              </div>
+              <div class="form-group">
+                <label for="asunto">Asunto</label>
+                <input type="text" class="form-control" id="asunto" placeholder="Asunto">
+              </div>
+              <div class="form-group">
+                <label for="email">Correo</label>
+                <input type="email" class="form-control" id="email" placeholder="Email">
+              </div>
+              <button type="submit" class="btn btn-default">Enviar</button>
+            </form>
+          </div>
         </div>
-
-    </div> <!-- end main row -->
-
-  </div>
-  <!-- end main Row -->
-
-</body>
-<footer>
-    <small>Dengue Counter - Copyright 2021</small>
-</footer>
+      </div>
+    </div>
+  </body>
 </html>
