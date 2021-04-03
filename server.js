@@ -6,20 +6,23 @@ import http from 'http';
 import path from 'path';
 import csvjson from 'csvjson';
 import api from './routes';
+import dotenv from 'dotenv'
 
+dotenv.config();
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const navigation = [
   { link: '/', name: 'Casos' },
   { link: '/map', name: 'Mapa' },
   { link: '/contact', name: 'Contacto' },
 ];
-const API_KEY = 'AIzaSyAUYDtv51kgaUx_wEw3bfWkoSiYrXuKGlA';
+//const API_KEY = 'AIzaSyAUYDtv51kgaUx_wEw3bfWkoSiYrXuKGlA';
 //var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
 
 app.use(morgan('dev'));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
+
 
 // ******************************************************** //
 /*
@@ -69,7 +72,7 @@ app.get('/map', (req, res) => {
       provs_country.map((prov) => {
         axios
           .get(
-            `ttps://maps.googleapis.com/maps/api/geocode/json?address=${prov}&key=${API_KEY}`
+            `ttps://maps.googleapis.com/maps/api/geocode/json?address=${prov}&key=${process.env.API_KEY}`
           )
           .then((response) => {
             provs_coords.push(response.data.results[0].geometry.location);
