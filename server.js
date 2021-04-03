@@ -16,7 +16,7 @@ const navigation = [
   { link: '/map', name: 'Mapa' },
   { link: '/contact', name: 'Contacto' },
 ];
-//const API_KEY = 'AIzaSyAUYDtv51kgaUx_wEw3bfWkoSiYrXuKGlA';
+
 //var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
 
 app.use(morgan('dev'));
