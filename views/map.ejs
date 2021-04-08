@@ -86,17 +86,8 @@
 
   <script>
       let provinces = "<%= JSON.stringify(provinces) %>".split('&#34;').filter(item => item !== '[' && item !== ']' && item !== ',')
-      //let provs = "<%= JSON.stringify(provs_coords) %>"
-      let provs = [
-        { lat: -31.6106578, lng: -60.697294 },
-        { lat: -26.1857768, lng: -58.1755669 },
-        { lat: -27.4692131, lng: -58.8306349 },
-        { lat: -34.6036844, lng: -58.3815591 },
-        { lat: -24.7821269, lng: -65.4231976 },
-        { lat: -27.4269255, lng: -55.9467076 },
-        { lat: -27.7833574, lng: -64.264167 }
-      ]
-      
+      let provs = "<%= JSON.stringify(provs_coords) %>"
+
       //console.log(provs + 'xxx')
       $.ajaxSetup({ async: false });
       // Initialize and add the map
