@@ -6,11 +6,12 @@ import http from 'http';
 import path from 'path';
 import csvjson from 'csvjson';
 import api from './routes';
-import dotenv from 'dotenv'
+import config from './config'
+//import dotenv from 'dotenv'
+//dotenv.config();
 
-dotenv.config();
 const app = express();
-const port = process.env.PORT || 3000;
+const port = config.port || 4000;
 const navigation = [
   { link: '/', name: 'Casos' },
   { link: '/map', name: 'Mapa' },
@@ -22,7 +23,6 @@ const navigation = [
 app.use(morgan('dev'));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
-
 
 // ******************************************************** //
 /*
