@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-
   <meta charset="utf-8">
-
   <title>Info Zika y Dengue</title>
-
   <!-- jQuery CDN -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
   <!--Load the AJAX API-->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
@@ -16,10 +12,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <!-- Optional theme -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
   <link rel="stylesheet" type="text/css" href="./css/style.css">
   <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </head>
@@ -136,19 +130,12 @@
     nodeTotalZika.appendChild(elemTotalZika);
     zika_total.appendChild(nodeTotalZika);
 
-    var exec = (ele) => {
-      alert('Alert ' + ele);
-    }
-
     for(let i=0; i<departaments.length; i++) {
       let node = document.createElement('li');
       let new_elem = document.createTextNode(departaments[i]);
       node.setAttribute('id', departaments[i]);
       node.appendChild(new_elem);
       node.addEventListener('click', () => {
-        //API_KEY = 'AIzaSyB-1VoMt3SNSzzSx1rxHLnIjaDr4tQUQyk';
-        API_KEY = ''
-        LOCATION = 'Jujuy, AR'
         var coords = $.get(url_api);
         console.log(coords);
       });
@@ -166,9 +153,9 @@
     }
 
   </script>
-
 </body>
-<footer>
-    <small>Dengue Counter - Copyright 2021</small>
+
+<footer class="footer">
+  <small>Dengue Counter - Copyright 2021</small>
 </footer>
 </html>
