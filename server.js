@@ -7,8 +7,6 @@ import path from 'path';
 import csvjson from 'csvjson';
 import api from './routes';
 import config from './config'
-//import dotenv from 'dotenv'
-//dotenv.config();
 
 const app = express();
 const port = config.port || 4000;
@@ -72,7 +70,7 @@ app.get('/map', (req, res) => {
       provs_country.map((prov) => {
         axios
           .get(
-            `ttps://maps.googleapis.com/maps/api/geocode/json?address=${prov}&key=${process.env.API_KEY}`
+            `ttps://maps.googleapis.com/maps/api/geocode/json?address=${prov}&key=${config.apiKeyGoogle}`
           )
           .then((response) => {
             provs_coords.push(response.data.results[0].geometry.location);
