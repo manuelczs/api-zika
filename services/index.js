@@ -59,24 +59,62 @@ class Services {
     return result;
   }
 
+/*
+-- Example --
+{
+  "departamento_id":"999","departamento_nombre":"*sin dato*",
+  "provincia_id":"06",
+  "provincia_nombre":"Buenos Aires",
+  "año":"2018",
+  "semanas_epidemiologicas":"11",
+  "evento_nombre":"Dengue",
+  "grupo_edad_id":"10",
+  "grupo_edad_desc":"De 45 a 64 años",
+  "cantidad_casos":"1"
+}
+*/
+
+  getTotalDengueByProv = (prov, jss) => {
+    let totalDengueByProv = 0;
+    for(let i = 0; i<jss.length; i++) {
+      if(jss[i].provincia_nombre == prov && jss[i].evento_nombre == 'Dengue') {
+        totalDengueByProv = totalDengueByProv + jss[i].cantidad_casos;
+      }
+    }
+    return { totalDengueByProv }
+  }
+
+  getTotalZikaByProv = (prov, jss) => {
+    let totalZikaByProv = 0;
+    for(let i = 0; i<jss.length; i++) {
+      if(jss[i].provincia_nombre == prov && jss[i].evento_nombre == 'Zika') {
+        totalZikaByProv = totalZikaByProv + jss[i].cantidad_casos;
+      }
+    }
+    return { totalZikaByProv }
+  }
+
+
   /* Given a jss returns a list like
     [{ province: 'prov1', dengueCases: 88, zikaCases: 99 },
     { province: 'prov2', dengueCases: 18, zikaCases: 29 }]
   */
   getProvsWithDengueAndZikaCases = (jss) => {
     let provinces = this.getProvinces(jss);
+    let provsList = [];
 
     for(let i = 0; i<provinces.length; i++) {
-      // Declare before...
+      let totalDengue = 0;
+      let totalZika = 0;
+      let provWithDengueAndZika = { provincia: '', totalDengue: 0, totalZika: 0 };
+      totalDengue = this.getTotalDengue(provinces[i].provincia_nombre, jss);
+      totalZika = this.getTotalZika(provinces[i].provincia_nombre, jss);
+      provWithDengueAndZika.provincia = provinces[i].provincia_nombre;
+      provWithDengueAndZika.totalDengue = totalDengue;
+      provWithDengueAndZika.totalZika = totalZika;
+      provsList.push(provWithDengueAndZika);
     }
-  }
-
-  getTotalDengueByProv = (prov, jss) => {
-    /* */
-  }
-
-  getTotalZikaByProv = (prov, jss) => {
-    /* */
+    return provsList;
   }
 
   /* Returns the total sum of Dengue cases */
