@@ -1,23 +1,8 @@
-function isIn(elem, arr) {
-  return arr.indexOf(elem) != -1;
-}
-
-// Returns a list of deps by province
-var getDepsByProv = (prov, jss) => {
-  let lss = [];
-  for (let i = 0; i < jss.length; i++) {
-    if (
-      jss[i].provincia_nombre == prov &&
-      lss.indexOf(jss[i].departamento_nombre) == -1
-    ) {
-      lss.push(jss[i].departamento_nombre);
-    }
-  }
-  return lss;
-};
-
 // Create Services class
 class Services {
+  #isIn(elem, arr) {
+    return arr.indexOf(elem) != -1;
+  }
 
   // Returns a list of provinces
   getProvinces(jss) {
@@ -72,6 +57,26 @@ class Services {
       result.push({ provincia: provs[i], departamentos: liss });
     }
     return result;
+  }
+
+  /* Given a jss returns a list like
+    [{ province: 'prov1', dengueCases: 88, zikaCases: 99 },
+    { province: 'prov2', dengueCases: 18, zikaCases: 29 }]
+  */
+  getProvsWithDengueAndZikaCases = (jss) => {
+    let provinces = this.getProvinces(jss);
+
+    for(let i = 0; i<provinces.length; i++) {
+      // Declare before...
+    }
+  }
+
+  getTotalDengueByProv = (prov, jss) => {
+    /* */
+  }
+
+  getTotalZikaByProv = (prov, jss) => {
+    /* */
   }
 
   /* Returns the total sum of Dengue cases */
