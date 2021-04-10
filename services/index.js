@@ -8,7 +8,7 @@ class Services {
   getProvinces(jss) {
     let value = [];
     for (let i = 0; i < jss.length; i++) {
-      if (!isIn(jss[i].provincia_nombre, value)) {
+      if (!this.#isIn(jss[i].provincia_nombre, value)) {
         value.push(jss[i].provincia_nombre);
       }
     }
