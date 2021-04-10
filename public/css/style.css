@@ -451,3 +451,7 @@ h4 {
 .row {
 	margin: 0px;
 }
+
+.form {
+  padding: 30px 75px;
+}
