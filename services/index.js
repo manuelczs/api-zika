@@ -2,6 +2,7 @@ function isIn(elem, arr) {
   return arr.indexOf(elem) != -1;
 }
 
+// Returns a list of deps by province
 var getDepsByProv = (prov, jss) => {
   let lss = [];
   for (let i = 0; i < jss.length; i++) {
@@ -15,7 +16,10 @@ var getDepsByProv = (prov, jss) => {
   return lss;
 };
 
+// Create Services class
 class Services {
+
+  // Returns a list of provinces
   getProvinces(jss) {
     let value = [];
     for (let i = 0; i < jss.length; i++) {
@@ -26,6 +30,7 @@ class Services {
     return { provinces: value };
   }
 
+  // Returns an object with departaments like: { departaments: ['example', 'example2'] }
   getDeparts(jss) {
     let deps = [];
     for (let i = 0; i < jss.length; i++) {
@@ -36,6 +41,7 @@ class Services {
     return { departaments: deps };
   }
 
+  // Returns an object with deps by province and its length like: { deps: ['prov1', 'prov2' ], length: 2 }
   getDepsByProv(prov, jss) {
     let lss = [];
     for (let i = 0; i < jss.length; i++) {
@@ -52,6 +58,11 @@ class Services {
     };
   }
 
+  /*
+    Given a jss it returns
+    [{ provincia: 'Prov1', departamentos: ['dep1', 'dep2'] },
+     { provincia: 'Prov2', departamentos: ['dep1', 'dep2'] }]
+  */
   getDepsOfProvs(jss) {
     let provs = getProvinces(jss);
     let result = [];
@@ -63,6 +74,7 @@ class Services {
     return result;
   }
 
+  /* Returns the total sum of Dengue cases */
   getTotalDengue(jss) {
     let totalDengue = 0;
     let result = 0;
@@ -74,6 +86,7 @@ class Services {
     return { totalDengue };
   }
 
+  /* Return the total sum of Zika cases */
   getTotalZika(jss) {
     let totalZika = 0;
     for (let i = 0; i < jss.length; i++) {
