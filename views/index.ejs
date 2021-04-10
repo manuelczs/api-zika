@@ -12,13 +12,7 @@
           <%- include('./layout/navbar') %> 
 
           <hr>
-
-          <div class="row">
-            <div class="col">
-              <!-- Some text here -->
-              <h1>mas texto</h1>
-            </div>
-          </div>
+          <%- include(`./pages/${page}`) %>
         </div>
         <hr>
 
@@ -35,44 +29,6 @@
       var totalZika = $.getJSON('api/total_zika').responseJSON.totalZika;
       var provinces = $.getJSON('api/provinces').responseJSON.provinces;
       var departaments = $.getJSON('api/departaments').responseJSON.departaments;
-
-      var ul_prov = document.getElementById('ul-id-prov');
-      var ul_deps = document.getElementById('ul-id-deps');
-      
-      var dengue_total = document.getElementById('total-dengue');
-      var nodeTotalDengue = document.createElement('p');
-      var elemTotalDengue = document.createTextNode('Total casos de Dengue: ' + totalDengue);
-      nodeTotalDengue.appendChild(elemTotalDengue);
-      dengue_total.appendChild(nodeTotalDengue);
-
-      var zika_total = document.getElementById('total-zika');
-      var nodeTotalZika = document.createElement('p');
-      var elemTotalZika = document.createTextNode('Total casos de Zika: ' + totalZika);
-      nodeTotalZika.appendChild(elemTotalZika);
-      zika_total.appendChild(nodeTotalZika);
-
-      for(let i=0; i<departaments.length; i++) {
-        let node = document.createElement('li');
-        let new_elem = document.createTextNode(departaments[i]);
-        node.setAttribute('id', departaments[i]);
-        node.appendChild(new_elem);
-        node.addEventListener('click', () => {
-          var coords = $.get(url_api);
-          console.log(coords);
-        });
-        document.getElementById('ul-id-deps').appendChild(node);
-        document.getElementById('ul-id-deps').setAttribute('class', 'list-group-item');
-      }
-
-      for(let i=0; i<provinces.length; i++) {
-        let node = document.createElement('li');
-        let new_elem = document.createTextNode(provinces[i]);
-        node.setAttribute('id', provinces[i]);
-        node.appendChild(new_elem);
-        document.getElementById('ul-id-prov').appendChild(node);
-        document.getElementById('ul-id-prov').setAttribute('class', 'list-group-item');
-      }
-
     </script>
 
     <%- include('./layout/footer') %>
