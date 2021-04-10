@@ -48,8 +48,22 @@ fs.writeFileSync('./json/final-json.in', data);
 /* End */
 
 app.use(api);
-app.get('/', (req, res) => {
-  res.render('index', { text: 'text-1', text1: 'text-2', navigation, page: 'home' });
+app.get('/', async (req, res) => {
+  let totalDengue = 0;
+  let totalZika = 0;
+  const URL_API = 'http://localhost:3000/api/';
+
+  await axios.get(URL_API + 'total_dengue').then(response => {
+    totalDengue = response.data.totalDengue;
+    console.log('total dengue: ' + totalDengue)
+  }).catch(err => { console.log(err)});
+
+  await axios.get(URL_API + 'total_zika').then(response => {
+    totalZika = response.data.totalZika;
+    console.log('total zika: ' + totalZika)
+  }).catch(err => { console.log(err) })
+
+  res.render('index', { text: 'text-1', text1: 'text-2', navigation, page: 'home', totalDengue, totalZika });
 });
 
 app.get('/map', (req, res) => {
