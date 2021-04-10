@@ -51,6 +51,8 @@ app.use(api);
 app.get('/', async (req, res) => {
   let totalDengue = 0;
   let totalZika = 0;
+  let allProvinces = [];
+  let allDepartaments = [];
   const URL_API = 'http://localhost:3000/api/';
 
   await axios.get(URL_API + 'total_dengue').then(response => {
@@ -63,7 +65,26 @@ app.get('/', async (req, res) => {
     console.log('total zika: ' + totalZika)
   }).catch(err => { console.log(err) })
 
-  res.render('index', { text: 'text-1', text1: 'text-2', navigation, page: 'home', totalDengue, totalZika });
+  await axios.get(URL_API + 'provinces').then(response => {
+    allProvinces = response.data.provinces;
+    console.log('Provinces: ' + allProvinces)
+  }).catch(err => { console.log(err) })
+
+  await axios.get(URL_API + 'departaments').then(response => {
+    allDepartaments = response.data.departaments;
+    console.log('Deps: ' + allDepartaments);
+  }).catch(err => { console.log(err) })
+
+  res.render('index', {
+    text: 'text-1',
+    text1: 'text-2',
+    navigation,
+    page: 'home',
+    totalDengue,
+    totalZika,
+    allProvinces,
+    allDepartaments
+  });
 });
 
 app.get('/map', (req, res) => {
