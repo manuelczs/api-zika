@@ -19,7 +19,7 @@ const navigation = [
 //var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
 
 app.use(morgan('dev'));
-app.use(express.static('public'));
+app.use(express.static(path.resolve(__dirname, 'public')));
 app.set('view engine', 'ejs');
 
 // ******************************************************** //
