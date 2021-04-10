@@ -7,18 +7,27 @@
       <div class="">
         <div class="">
           <!-- Main Header -->
-          <%- include('./layout/main-head') %> 
+          <div>
+            <%- include('./layout/main-head') %>
+          </div> 
           <!-- NavBar -->
-          <%- include('./layout/navbar') %> 
+          <div>
+            <%- include('./layout/navbar') %> 
+          </div>
           <hr>
           <!-- Render pages -->
-          <%- include(`./pages/${page}`) %>
+          <div>
+            <%- include(`./pages/${page}`) %>
+          </div>
         </div>
         <hr>
       </div> <!-- end main row -->
     </div>
     <!-- end main Row -->
-    <%- include('./layout/footer') %>
+    <!-- Footer -->
+    <div>
+      <%- include('./layout/footer') %>
+    </div>
 
   </body>
 </html>
