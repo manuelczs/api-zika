@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <%- include('./layout/head') %>
-  <body class="container">
+  <body class="container-fluid">
     <!-- main Row -->
     <div class="">
       <div class="">
@@ -10,27 +10,16 @@
           <%- include('./layout/main-head') %> 
           <!-- NavBar -->
           <%- include('./layout/navbar') %> 
-
           <hr>
+          <!-- Render pages -->
           <%- include(`./pages/${page}`) %>
         </div>
         <hr>
-
         <div class="col-sm-12 bar">
         </div>
-
       </div> <!-- end main row -->
     </div>
-
     <!-- end main Row -->
-    <script>
-      $.ajaxSetup({ async: false });
-      var totalDengue = $.getJSON('api/total_dengue').responseJSON.totalDengue;
-      var totalZika = $.getJSON('api/total_zika').responseJSON.totalZika;
-      var provinces = $.getJSON('api/provinces').responseJSON.provinces;
-      var departaments = $.getJSON('api/departaments').responseJSON.departaments;
-    </script>
-
     <%- include('./layout/footer') %>
 
   </body>
