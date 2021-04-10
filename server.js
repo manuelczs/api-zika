@@ -49,7 +49,7 @@ fs.writeFileSync('./json/final-json.in', data);
 
 app.use(api);
 app.get('/', (req, res) => {
-  res.render('index', { text: 'text-1', text1: 'text-2', navigation });
+  res.render('index', { text: 'text-1', text1: 'text-2', navigation, page: 'home' });
 });
 
 app.get('/map', (req, res) => {
@@ -98,7 +98,7 @@ app.get('/map', (req, res) => {
 });
 
 app.get('/contact', (req, res) => {
-  res.render('contact', { navigation });
+  res.render('index', { navigation, page: 'contact' });
 });
 
 app.listen(port, () => console.log(`port ${port} listening...`));
