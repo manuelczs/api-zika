@@ -53,6 +53,7 @@ app.get('/', async (req, res) => {
   let totalZika = 0;
   let allProvinces = [];
   let allDepartaments = [];
+  let provsWithDengueAndZika = [];
   const URL_API = 'http://localhost:3000/api/';
 
   await axios.get(URL_API + 'total_dengue').then(response => {
@@ -75,15 +76,18 @@ app.get('/', async (req, res) => {
     console.log('Deps: ' + allDepartaments);
   }).catch(err => { console.log(err) })
 
+  await axios.get(URL_API + 'provs_with_dengue_and_zika_cases').then(response => {
+    provsWithDengueAndZika = response.data;
+  }).catch(err => { console.log(err) })
+
   res.render('index', {
-    text: 'text-1',
-    text1: 'text-2',
     navigation,
     page: 'home',
     totalDengue,
     totalZika,
     allProvinces,
-    allDepartaments
+    allDepartaments,
+    provsWithDengueAndZika
   });
 });
 
