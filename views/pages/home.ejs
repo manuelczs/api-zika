@@ -18,9 +18,13 @@
 
   <div class="col">
     <!-- Some text here -->
-    <h1>Total Dengue: <%= totalDengue %> </h1>
-    <h1>Total Zika: <%= totalZika %> </h1>
-    <h1>Total provincias afectadas: <%= allProvinces.length %> </h1>
+    <div>
+      <h1>Total Dengue: <%= totalDengue %> </h1>
+      <h1>Total Zika: <%= totalZika %> </h1>
+      <h1>Total provincias afectadas: <%= allProvinces.length %> </h1>
+    </div>
+    <div class="chart-container" style="position: relative; height:20vh; width:20vw">
+      <canvas id="myChart"></canvas>
+    </div>
   </div>
-
 </div>
