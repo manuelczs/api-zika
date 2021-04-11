@@ -74,21 +74,22 @@ class Services {
 }
 */
 
-  getTotalDengueByProv = (prov, jss) => {
+  getTotalDengueByProv(prov, jss) {
     let totalDengueByProv = 0;
     for(let i = 0; i<jss.length; i++) {
-      if(jss[i].provincia_nombre == prov && jss[i].evento_nombre == 'Dengue') {
-        totalDengueByProv = totalDengueByProv + jss[i].cantidad_casos;
+      if(jss[i].provincia_nombre === prov && jss[i].evento_nombre === 'Dengue') {
+        totalDengueByProv = totalDengueByProv + parseInt(jss[i].cantidad_casos);
       }
     }
+
     return { totalDengueByProv }
   }
 
-  getTotalZikaByProv = (prov, jss) => {
+  getTotalZikaByProv(prov, jss) {
     let totalZikaByProv = 0;
     for(let i = 0; i<jss.length; i++) {
-      if(jss[i].provincia_nombre == prov && jss[i].evento_nombre == 'Zika') {
-        totalZikaByProv = totalZikaByProv + jss[i].cantidad_casos;
+      if(jss[i].provincia_nombre === prov && jss[i].evento_nombre === 'Enfermedad por Virus del Zika') {
+        totalZikaByProv = totalZikaByProv + parseInt(jss[i].cantidad_casos);
       }
     }
     return { totalZikaByProv }
@@ -101,17 +102,19 @@ class Services {
   */
   getProvsWithDengueAndZikaCases = (jss) => {
     let provinces = this.getProvinces(jss);
+    provinces = provinces.provinces;
     let provsList = [];
-
+    
     for(let i = 0; i<provinces.length; i++) {
       let totalDengue = 0;
       let totalZika = 0;
-      let provWithDengueAndZika = { provincia: '', totalDengue: 0, totalZika: 0 };
-      totalDengue = this.getTotalDengue(provinces[i].provincia_nombre, jss);
-      totalZika = this.getTotalZika(provinces[i].provincia_nombre, jss);
-      provWithDengueAndZika.provincia = provinces[i].provincia_nombre;
-      provWithDengueAndZika.totalDengue = totalDengue;
-      provWithDengueAndZika.totalZika = totalZika;
+      let provWithDengueAndZika = { provincia: '', totalDengue: 0, totalZika: 0 };      
+      totalDengue = this.getTotalDengueByProv(provinces[i], jss);
+      totalZika = this.getTotalZikaByProv(provinces[i], jss);
+      provWithDengueAndZika.provincia = provinces[i];
+      provWithDengueAndZika.totalDengue = totalDengue.totalDengueByProv;
+      provWithDengueAndZika.totalZika = totalZika.totalZikaByProv;
+      console.log(provWithDengueAndZika)
       provsList.push(provWithDengueAndZika);
     }
     return provsList;
