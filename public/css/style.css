@@ -355,6 +355,11 @@ a:hover {
   text-decoration: none;
 }
 
+.canvas-chart {
+  height: 50px;
+  width: auto;
+}
+
 .col-sm-12 {
 	margin: 0;
 	padding: 0;
