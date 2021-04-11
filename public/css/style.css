@@ -367,6 +367,7 @@ a:hover {
 
 .cruz {
   height: 90px;
+  margin: 1.5rem;
 }
 
 .div-prov-loc {
@@ -398,12 +399,14 @@ body {
 .header { 
 	background-color: black;
 	background-image: url('../../img/salud.jpg');
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: 100%;
-	text-shadow: 3px 3px black;
-	height: 350px;
-	padding: 50px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: white;
+}
+
+.main-header {
+  background-color: black;
 }
 
 h4 { 
@@ -428,10 +431,20 @@ h4 {
 	padding: 3px;
 }
 
-.right-side, col, h2 {
-	background-color: black;
-	color: white;
-	text-align: center;
+.title {
+  text-align: center;
+}
+
+.description {
+  text-align: center;
+}
+
+.title-and-description {
+  margin-top: 2rem;
+}
+
+.cruz-container {
+  text-align: center;
 }
 
 .select {
