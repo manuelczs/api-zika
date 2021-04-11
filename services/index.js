@@ -114,7 +114,6 @@ class Services {
       provWithDengueAndZika.provincia = provinces[i];
       provWithDengueAndZika.totalDengue = totalDengue.totalDengueByProv;
       provWithDengueAndZika.totalZika = totalZika.totalZikaByProv;
-      console.log(provWithDengueAndZika)
       provsList.push(provWithDengueAndZika);
     }
     return provsList;
@@ -123,9 +122,8 @@ class Services {
   /* Returns the total sum of Dengue cases */
   getTotalDengue(jss) {
     let totalDengue = 0;
-    let result = 0;
     for (let i = 0; i < jss.length; i++) {
-      if (jss[i].evento_nombre == 'Dengue') {
+      if (jss[i].evento_nombre === 'Dengue') {
         totalDengue += Number(jss[i].cantidad_casos);
       }
     }
