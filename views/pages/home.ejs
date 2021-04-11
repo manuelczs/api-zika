@@ -1,12 +1,15 @@
 <div class="row">
-  
+
   <div class="col">
     <div class="">
       <ul class="list-group">
-        <% allProvinces.map(prov => { %>
+        <% provsWithDengueAndZika.map(prov => { %>
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            <%= prov %> 
-            <span class="badge badge-primary badge-pill">14</span>
+            <%= prov.provincia %>
+            <div>
+              <span class="badge badge-warning badge-pill">Casos de Dengue: <%= prov.totalDengue ? prov.totalDengue : 0 %></span>
+              <span class="badge badge-primary badge-pill">Casos de Zika: <%= prov.totalZika ? prov.totalZika : 0 %></span>
+            </div>
           </li>
         <% }) %>     
       </ul>
@@ -17,9 +20,7 @@
     <!-- Some text here -->
     <h1>Total Dengue: <%= totalDengue %> </h1>
     <h1>Total Zika: <%= totalZika %> </h1>
-    <h1>Provincias: <%= allProvinces[0] %>, <%= allProvinces[1] %>, <%= allProvinces[2] %> </h1>
-    <h1>Total provincias: <%= allProvinces.length %> </h1>
-    <h1>All departaments: <%= allDepartaments[1] %> </h1>
+    <h1>Total provincias afectadas: <%= allProvinces.length %> </h1>
   </div>
 
 </div>
