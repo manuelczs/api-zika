@@ -52,6 +52,14 @@ routes.get('/api/total_zika', (req, res) => {
   }
 });
 
+routes.get('/api/provs_with_dengue_and_zika_cases', (req, res) => {
+  try {
+    res.status(200).json(services.getProvsWithDengueAndZikaCases(jsonData));
+  } catch(err) {
+    res.status(500).send(err)
+  }
+})
+
 routes.get('/api/departaments', (req, res) => {
   try {
     res.status(200).json(services.getDeparts(jsonData));
