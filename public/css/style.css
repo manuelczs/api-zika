@@ -481,3 +481,14 @@ h4 {
 .form {
   padding: 30px 75px;
 }
+
+/* Contact Form */
+.form {
+  width: 80%;
+}
+
+.textarea-form {
+  resize: vertical;
+  min-height: 250px;
+  max-height: 250px;
+}
