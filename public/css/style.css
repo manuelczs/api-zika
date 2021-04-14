@@ -393,26 +393,32 @@ a:hover {
 }
 
 body {
-	background-color: black;
+	background-color: rgb(39, 110, 192);
 	color: white;
 	font-family: 'Ubuntu';
 }
 
-.header { 
-	background-color: black;
-	background-image: url('../../img/salud.jpg');
+.header {
+  margin: 0px 0px;
+  padding: 1.3rem; 
+	background-color: rgb(37, 129, 216);
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(46,84,121)),url('../../img/salud.jpg');
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center;
   color: white;
 }
 
-.main-header {
-  background-color: black;
+.main-header-right {
+  background-color: rgb(61,109,157);
+}
+
+.main-header-left {
+  background-color: rgb(46,84,121);
 }
 
 h4 { 
-    color: white;
+  color: white;
 }
 
 .map-section { 
@@ -422,7 +428,7 @@ h4 {
 
 .side-map { 
 	margin: 0px;
-    padding: 0px;
+  padding: 0px;
 }
 
 .right-side {
@@ -442,7 +448,7 @@ h4 {
 }
 
 .title-and-description {
-  margin-top: 2rem;
+  margin-top: 0;
 }
 
 .cruz-container {
