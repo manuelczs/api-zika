@@ -37,9 +37,9 @@
   <div class="col">
     <!-- Some text here -->
     <div>
+      <h1>Provincia: <%= prov %>  </h1>
       <h1>Total Dengue:  </h1>
       <h1>Total Zika: </h1>
-      <h1>Total provincias afectadas: </h1>
     </div>
     <div class="chart-container" style="position: relative; height:20vh; width:20vw">
       <canvas id="myChart"></canvas>
@@ -48,29 +48,29 @@
 </div>
 
 <script>
-  const data = {
-    labels: [
-      'Buenos Aires',
+const data = {
+  labels: [
+    'Buenos Aires', 'Salta'
+  ],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [153, 20],
+    backgroundColor: [
+      'rgb(255, 99, 132)'
     ],
-    datasets: [{
-      label: 'My First Dataset',
-      data: [153],
-      backgroundColor: [
-        'rgb(255, 99, 132)'
-      ],
-      hoverOffset: 4
-    }]
-  };
-  var ctx = document.getElementById('myChart').getContext('2d');
-  var myChart = new Chart(ctx, {
-      type: 'doughnut',
-      data: data,
-      options: {
-          scales: {
-              y: {
-                  beginAtZero: true
-              }
-          }
+    hoverOffset: 4
+  }]
+};
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+  type: 'doughnut',
+  data: data,
+  options: {
+    scales: {
+      y: {
+          beginAtZero: true
       }
-  });
-  </script>
+    }
+  }
+});
+</script>
