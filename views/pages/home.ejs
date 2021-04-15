@@ -13,9 +13,23 @@
         <% provsWithDengueAndZika.map((prov, key) => { %>
           <tr>
             <th scope="row"><%= key+1 %></th>
-            <td><%= prov.provincia %></td>
-            <td><span class="badge badge-primary badge-pill">Casos: <%= prov.totalZika ? prov.totalZika : 0 %></span></td>
-            <td><span class="badge badge-warning badge-pill">Casos: <%= prov.totalDengue ? prov.totalDengue : 0 %></span></td>
+              <td>
+                <a href="prov/<%= prov.provincia.toLowerCase().replaceAll(' ', '_') %>" class="anchor-prov">
+                  <%= prov.provincia %>
+                </a>
+              </td>
+            <td>
+              <span class="badge badge-primary badge-pill">
+                <%= prov.totalZika ? prov.totalZika : 0 %> 
+                <%= (prov.totalZika ? prov.totalZika : 0) == 1 ? 'CASO' : 'CASOS' %>
+              </span>
+            </td>
+            <td>
+              <span class="badge badge-warning badge-pill">
+                <%= prov.totalDengue ? prov.totalDengue : 0 %> 
+                <%= (prov.totalDengue ? prov.totalDengue : 0) == 1 ? 'CASO' : 'CASOS' %>
+              </span>
+            </td>
           </tr>
         <% }) %> 
       </tbody>
