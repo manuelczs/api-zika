@@ -21,6 +21,7 @@ const navigation = [
 app.use(morgan('dev'));
 app.use(express.static(path.resolve(__dirname, 'public')));
 app.set('view engine', 'ejs');
+const URL_API = 'http://localhost:3000/api/';
 
 // ******************************************************** //
 /*
@@ -54,7 +55,6 @@ app.get('/', async (req, res) => {
   let allProvinces = [];
   let allDepartaments = [];
   let provsWithDengueAndZika = [];
-  const URL_API = 'http://localhost:3000/api/';
 
   await axios.get(URL_API + 'total_dengue').then(response => {
     totalDengue = response.data.totalDengue;
@@ -140,9 +140,14 @@ app.get('/contact', (req, res) => {
   res.render('index', { navigation, page: 'contact' });
 });
 
-app.get('/prov/:provName', (req, res) => {
+app.get('/prov/:provName', async(req, res) => {
   const prov = req.params.provName;
-  res.render('index', { navigation, page: 'single-prov', prov });
+  let deps = [];
+  await axios.get(URL_API + `deps_by_prov/${prov}`).then(response => {
+    deps = response.data.deps;
+    console.log(deps)
+  }).catch(err => { console.log(err) })
+  res.render('index', { navigation, page: 'single-prov', deps });
 })
 
 app.listen(port, () => console.log(`port ${port} listening...`));
