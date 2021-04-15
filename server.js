@@ -147,7 +147,7 @@ app.get('/prov/:provName', async(req, res) => {
     deps = response.data.deps;
     console.log(deps)
   }).catch(err => { console.log(err) })
-  res.render('index', { navigation, page: 'deps', deps });
+  res.render('index', { navigation, page: 'deps', prov, deps });
 })
 
 app.listen(port, () => console.log(`port ${port} listening...`));
