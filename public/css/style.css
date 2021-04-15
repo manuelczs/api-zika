@@ -492,3 +492,14 @@ h4 {
   min-height: 250px;
   max-height: 250px;
 }
+
+/* Home Table */
+.anchor-prov {
+  text-decoration: none;
+  color: white;
+}
+
+.anchor-prov:hover {
+  text-decoration: none;
+  color: rgb(208, 204, 204);
+}
