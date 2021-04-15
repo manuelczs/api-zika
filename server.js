@@ -140,4 +140,9 @@ app.get('/contact', (req, res) => {
   res.render('index', { navigation, page: 'contact' });
 });
 
+app.get('/prov/:provName', (req, res) => {
+  const prov = req.params.provName;
+  res.render('index', { navigation, page: 'single-prov', prov });
+})
+
 app.listen(port, () => console.log(`port ${port} listening...`));
