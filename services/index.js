@@ -1,6 +1,6 @@
 // Create Services class
 class Services {
-  #isIn(elem, arr) {
+  isIn(elem, arr) {
     return arr.indexOf(elem) != -1;
   }
 
@@ -8,7 +8,7 @@ class Services {
   getProvinces(jss) {
     let value = [];
     for (let i = 0; i < jss.length; i++) {
-      if (!this.#isIn(jss[i].provincia_nombre, value)) {
+      if (!this.isIn(jss[i].provincia_nombre, value)) {
         value.push(jss[i].provincia_nombre);
       }
     }
@@ -100,7 +100,7 @@ class Services {
     [{ province: 'prov1', dengueCases: 88, zikaCases: 99 },
     { province: 'prov2', dengueCases: 18, zikaCases: 29 }]
   */
-  getProvsWithDengueAndZikaCases = (jss) => {
+  getProvsWithDengueAndZikaCases(jss) {
     let provinces = this.getProvinces(jss);
     provinces = provinces.provinces;
     let provsList = [];
