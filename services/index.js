@@ -26,7 +26,7 @@ class Services {
     return { departaments: deps };
   }
 
-  // Returns an object with deps by province and its length like: { deps: ['prov1', 'prov2' ], length: 2 }
+  // Returns an object with deps by province and its length like: { deps: ['dep1', 'dep2' ], length: 2 }
   getDepsByProv(prov, jss) {
     let lss = [];
     for (let i = 0; i < jss.length; i++) {
@@ -38,6 +38,7 @@ class Services {
       }
     }
     return {
+      prov,
       deps: lss,
       length: lss.length,
     };
@@ -117,6 +118,34 @@ class Services {
       provsList.push(provWithDengueAndZika);
     }
     return provsList;
+  }
+
+  getDengueAndZikaByDep(prov, jss) {
+    let deps = [];
+    let data = [];
+
+    // list of deps ['dep1', 'dep2']
+    deps = this.getDepsByProv(prov, jss).deps;
+
+    // Count Dengue
+    for(let i=0; i<deps.length; i++) {
+      let dengueCases = 0;
+      let zikaCases = 0;
+
+      for(let j=0; j<jss.length; j++) {
+        if(jss[j].departamento_nombre == deps[i] && jss[j].provincia_nombre == prov
+            && jss[j].evento_nombre == 'Dengue') {
+            dengueCases = dengueCases + 1;
+        } else if(jss[j].departamento_nombre == deps[i] && jss[j].provincia_nombre == prov
+            && jss[j].evento_nombre == 'Enfermedad por Virus del Zika') {
+            zikaCases = zikaCases + 1;
+        }
+      }
+
+      data.push({ dep: deps[i], dengueCases, zikaCases })
+    }
+
+    return { prov, data }
   }
 
   /* Returns the total sum of Dengue cases */
