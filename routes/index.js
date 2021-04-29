@@ -27,10 +27,11 @@ routes.get('/api/departaments', (req, res) => {
 });
 
 routes.get('/api/deps_by_prov/:prov', (req, res) => {
+  const prov = req.params.prov;
   try {
     res
       .status(200)
-      .json(services.getDepsByProv(`${req.params.prov}`, jsonData));
+      .json(services.getDepsByProv(`${prov}`, jsonData));
   } catch (e) {
     res.status(500).send(e);
   }
@@ -67,5 +68,15 @@ routes.get('/api/departaments', (req, res) => {
     res.status(500).send(e);
   }
 });
+
+routes.get('/api/:prov/total_deps_dengue_zika', (req, res) => {
+  let prov = req.params.prov
+  try {
+    res.status(200).json(services.getDengueAndZikaByDep(prov, jsonData))
+  } catch(err) {
+    console.log(err)
+    res.status(500).send(err)
+  }
+})
 
 module.exports = routes;
