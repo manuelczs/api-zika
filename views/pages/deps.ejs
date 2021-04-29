@@ -10,22 +10,24 @@
         </tr>
       </thead>
       <tbody>
-        <% deps.map((dep, key) => { %>
+        <% deps.map((item, key) => { %>
           <tr>
             <th scope="row"><%= key+1 %></th>
               <td>
                 <a>
-                  <%= dep %>
+                  <%= item.dep %>
                 </a>
               </td>
             <td>
               <span class="badge badge-primary badge-pill">
-                0 casos
+                <%= item.zikaCases ? item.zikaCases : 0 %> 
+                <%= (item.zikaCases ? item.zikaCases : 0) == 1 ? 'CASO' : 'CASOS' %>
               </span>
             </td>
             <td>
               <span class="badge badge-warning badge-pill">
-                0 casos
+                <%= item.dengueCases ? item.dengueCases : 0 %> 
+                <%= (item.dengueCases ? item.dengueCases : 0) == 1 ? 'CASO' : 'CASOS' %>
               </span>
             </td>
           </tr>
