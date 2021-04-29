@@ -146,7 +146,23 @@ app.get('/prov/:provName', async(req, res) => {
   await axios.get(URL_API + `deps_by_prov/${prov}`).then(response => {
     deps = response.data.deps;
     console.log(deps)
-  }).catch(err => { console.log(err) })
+  }).catch(err => {
+    console.log(err)
+  })
+
+  res.render('index', { navigation, page: 'deps', prov, deps });
+})
+
+app.get('/:provName/total_deps_dengue_zika', async(req, res) => {
+  const prov = req.params.provName;
+  let deps = [];
+  await axios.get(URL_API + `${prov}/total_deps_dengue_zika`).then(response => {
+    deps = response.data.data;
+    console.log(deps)
+  }).catch(err => {
+    console.log(err)
+  })
+
   res.render('index', { navigation, page: 'deps', prov, deps });
 })
 
