@@ -131,13 +131,14 @@
         }
       }
     });  
-  }).then(() => {    
+  }).then(() => {
+    const dataProv = provincesWithInfo.map(prov => prov.totalDengue > 0 ? prov.totalDengue : null).filter(item => item !== null);    
     const data = {
       labels: provinces,
       datasets: [{
         label: 'My First Dataset',
-        data: provincesWithInfo.map(prov => prov.totalDengue),
-        backgroundColor: colors,
+        data: dataProv,
+        backgroundColor: colors.slice(dataProv.length),
         hoverOffset: 4
       }]
     };
