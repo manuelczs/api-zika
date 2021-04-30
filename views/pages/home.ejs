@@ -20,14 +20,14 @@
               </td>
             <td>
               <span class="badge badge-primary badge-pill">
-                <%= prov.totalZika ? prov.totalZika : 0 %> 
-                <%= (prov.totalZika ? prov.totalZika : 0) == 1 ? 'CASO' : 'CASOS' %>
+                <%= prov.totalZika ? prov.totalZika : 'Sin' %>
+                <%= (prov.totalZika ? prov.totalZika : 0) == 1 ? 'Caso' : 'Casos' %>
               </span>
             </td>
             <td>
               <span class="badge badge-warning badge-pill">
-                <%= prov.totalDengue ? prov.totalDengue : 0 %> 
-                <%= (prov.totalDengue ? prov.totalDengue : 0) == 1 ? 'CASO' : 'CASOS' %>
+                <%= prov.totalDengue ? prov.totalDengue : 'Sin' %> 
+                <%= (prov.totalDengue ? prov.totalDengue : 0) == 1 ? 'Caso' : 'Casos' %>
               </span>
             </td>
           </tr>
