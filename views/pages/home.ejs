@@ -43,42 +43,117 @@
       <h1>Total Zika: <%= totalZika %> </h1>
       <h1>Total provincias afectadas: <%= allProvinces.length %> </h1>
     </div>
-    <div class="chart-container" style="position: relative; height:20vh; width:20vw">
-      <canvas id="myChart"></canvas>
+    <div class="col">
+      <div class="row">
+        <div class="col chart-container" style="position: relative; height:20vh; width:20vw">
+          <div class="text-center">
+            <p>
+              <h2 class="">Dengue</h2>
+            </p>
+          </div>
+          <canvas id="myChartDengue"></canvas>
+        </div>
+
+        <div class="col chart-container" style="position: relative; height:20vh; width:20vw">
+          <div class="text-center">
+            <p>
+              <h2>Zika</h2>
+            </p>
+          </div>
+          <canvas id="myChartZika"></canvas>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-const data = {
-  labels: [
-    'Buenos Aires',
-    'CABA',
-    'Chaco',
-    'Cordoba'
-  ],
-  datasets: [{
-    label: 'My First Dataset',
-    data: [153, 111, 81],
-    backgroundColor: [
-      'rgb(255, 99, 132)',
-      'rgb(54, 162, 235)',
-      'rgb(255, 205, 86)',
-      'rgb(255, 105, 16)'
-    ],
-    hoverOffset: 4
-  }]
-};
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-  type: 'doughnut',
-  data: data,
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true
+  let provinces = [];
+  let provinces_ = [];
+  let provincesWithInfo = [];
+  let totalDengue = 0;
+  let totalZika = 0;
+  let colors = [
+  '#1c3321',
+  '#f58f0a',
+  '#4996c9',
+  '#00f539',
+  '#0b355e',
+  '#5e0b0b',
+
+  '#1c3321',
+  '#f58f0a',
+  '#4996c9',
+  '#00f539',
+  '#0b355e',
+  '#5e0b0b',
+
+  // Change for add more provs
+  '#1c3321',
+  '#f58f0a',
+  '#4996c9',
+  '#00f539',
+  '#0b355e',
+  '#5e0b0b',
+
+  '#1c3321',
+  '#f58f0a',
+  '#4996c9',
+  '#00f539',
+  '#0b355e',
+  '#5e0b0b',
+]
+
+  axios.get('http://localhost:3000/api/provs_with_dengue_and_zika_cases').then(response => {
+    provincesWithInfo = response.data;
+    provinces = response.data.map(prov => prov.totalDengue > 0 ? prov.provincia : null).filter(item => item !== null);
+    provinces_ = response.data.map(prov => prov.totalZika > 0 ? prov.provincia : null).filter(item => item !== null);
+  }).then(() => {
+    const data2 = {
+      labels: provinces_,
+      datasets: [{
+        label: 'My Second Dataset',
+        data: provincesWithInfo.map(prov => prov.totalZika > 0 ? prov.totalZika : null).filter(item => item !== null),
+        backgroundColor: colors,
+        hoverOffset: 4
+      }]
+    };
+    
+    let ctx = document.getElementById('myChartZika').getContext('2d');
+    let myChartZika = new Chart(ctx, {
+      type: 'doughnut',
+      data: data2,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
       }
-    }
-  }
-});
+    });  
+  }).then(() => {    
+    const data = {
+      labels: provinces,
+      datasets: [{
+        label: 'My First Dataset',
+        data: provincesWithInfo.map(prov => prov.totalDengue),
+        backgroundColor: colors,
+        hoverOffset: 4
+      }]
+    };
+    
+    let ctx = document.getElementById('myChartDengue').getContext('2d');
+    let myChartDengue = new Chart(ctx, {
+      type: 'doughnut',
+      data: data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  })
+
 </script>
