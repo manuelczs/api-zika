@@ -20,14 +20,14 @@
               </td>
             <td>
               <span class="badge badge-primary badge-pill">
-                <%= item.zikaCases ? item.zikaCases : 0 %> 
-                <%= (item.zikaCases ? item.zikaCases : 0) == 1 ? 'CASO' : 'CASOS' %>
+                <%= item.zikaCases ? item.zikaCases : 'Sin' %> 
+                <%= (item.zikaCases ? item.zikaCases : 0) == 1 ? 'Caso' : 'Casos' %>
               </span>
             </td>
             <td>
               <span class="badge badge-warning badge-pill">
-                <%= item.dengueCases ? item.dengueCases : 0 %> 
-                <%= (item.dengueCases ? item.dengueCases : 0) == 1 ? 'CASO' : 'CASOS' %>
+                <%= item.dengueCases ? item.dengueCases : 'Sin' %> 
+                <%= (item.dengueCases ? item.dengueCases : 0) == 1 ? 'Caso' : 'Casos' %>
               </span>
             </td>
           </tr>
@@ -40,39 +40,118 @@
     <!-- Some text here -->
     <div>
       <h1>Provincia: <%= prov %>  </h1>
-      <h1>Total Dengue:  </h1>
-      <h1>Total Zika: </h1>
+      <h1>Total Dengue: <%= totalDengueProv %> </h1>
+      <h1>Total Zika: <%= totalZikaProv %> </h1>
     </div>
-    <div class="chart-container" style="position: relative; height:20vh; width:20vw">
-      <canvas id="myChart"></canvas>
+
+    <div class="col">
+      <div class="row">
+        <div class="col chart-container" style="position: relative; height:20vh; width:20vw">
+          <div class="text-center">
+            <p>
+              <h2>Dengue</h2>
+            </p>
+          </div>
+          <canvas id="myChart"></canvas>
+        </div>
+
+        <div class="col chart-container" style="position: relative; height:20vh; width:20vw">
+          <div class="text-center">
+            <p>
+              <h2>Zika</h2>
+            </p>
+          </div>
+          <canvas id="zikaChart"></canvas>
+        </div>
+      </div>
     </div>
+
   </div>
 </div>
 
-<script>
-const data = {
-  labels: [
-    'Buenos Aires', 'Salta'
-  ],
-  datasets: [{
-    label: 'My First Dataset',
-    data: [153, 20],
-    backgroundColor: [
-      'rgb(255, 99, 132)'
-    ],
-    hoverOffset: 4
-  }]
-};
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-  type: 'doughnut',
-  data: data,
-  options: {
-    scales: {
-      y: {
-          beginAtZero: true
-      }
-    }
-  }
-});
+<script type="text/javascript">
+  let prov = JSON.stringify("<%= prov %>").replaceAll('"', "")
+  let deps = [];
+  let colors = [
+  '#1c3321',
+  '#f58f0a',
+  '#4996c9',
+  '#00f539',
+  '#0b355e',
+  '#5e0b0b',
+
+  '#1c3321',
+  '#f58f0a',
+  '#4996c9',
+  '#00f539',
+  '#0b355e',
+  '#5e0b0b',
+
+  // Change for add more provs
+  '#1c3321',
+  '#f58f0a',
+  '#4996c9',
+  '#00f539',
+  '#0b355e',
+  '#5e0b0b',
+
+  '#1c3321',
+  '#f58f0a',
+  '#4996c9',
+  '#00f539',
+  '#0b355e',
+  '#5e0b0b',
+]
+
+  axios.get(`http://localhost:3000/api/${prov}/total_deps_dengue_zika`)
+    .then(response => {
+      console.log(response.data.data)
+      deps = response.data.data;
+    }).then(() => {
+      const data = {
+        labels: deps.map(item => item.dengueCases !== 0 ? item.dep : null).filter(item => item !== null),
+        datasets: [{
+          label: 'My First Dataset',
+          data: deps.map(item => item.dengueCases),
+          backgroundColor: colors,
+          hoverOffset: 4
+        }]
+      };
+      
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: data,
+        options: {
+          scales: {
+            y: {
+                beginAtZero: true
+            }
+          }
+        }
+      });
+    }).then(() => {
+      const data = {
+        labels: deps.map(item => item.zikaCases !== 0 ? item.dep : null).filter(dep => dep !== null),
+        datasets: [{
+          label: 'My First Dataset',
+          data: deps.map(item => item.zikaCases !== 0 ? item.zikaCases : null).filter(dep => dep !== null),
+          backgroundColor: colors,
+          hoverOffset: 4
+        }]
+      };
+
+      var ctx = document.getElementById('zikaChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: data,
+        options: {
+          scales: {
+            y: {
+                beginAtZero: true
+            }
+          }
+        }
+      });
+    })
 </script>
