@@ -155,15 +155,22 @@ app.get('/prov/:provName', async(req, res) => {
 
 app.get('/:provName/total_deps_dengue_zika', async(req, res) => {
   const prov = req.params.provName;
+  let totalDengueProv = 0;
+  let totalZikaProv = 0;
   let deps = [];
+
+  const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
   await axios.get(URL_API + `${prov}/total_deps_dengue_zika`).then(response => {
     deps = response.data.data;
-    console.log(deps)
+    totalDengueProv = deps.map(prov => prov.dengueCases).reduce(reducer)
+    totalZikaProv = deps.map(prov => prov.zikaCases).reduce(reducer)
+
   }).catch(err => {
     console.log(err)
   })
 
-  res.render('index', { navigation, page: 'deps', prov, deps });
+  res.render('index', { navigation, page: 'deps', prov, deps, totalDengueProv, totalZikaProv });
 })
 
 app.listen(port, () => console.log(`port ${port} listening...`));
