@@ -135,11 +135,12 @@ class Services {
       for(let j=0; j<jss.length; j++) {
         if(jss[j].departamento_nombre == deps[i] && jss[j].provincia_nombre == prov
             && jss[j].evento_nombre == 'Dengue') {
-            dengueCases = dengueCases + 1;
+            dengueCases = dengueCases + Number(jss[j].cantidad_casos);
         } else if(jss[j].departamento_nombre == deps[i] && jss[j].provincia_nombre == prov
             && jss[j].evento_nombre == 'Enfermedad por Virus del Zika') {
-            zikaCases = zikaCases + 1;
-        }
+            //zikaCases = zikaCases + 1;
+            zikaCases = zikaCases + Number(jss[j].cantidad_casos)
+          }
       }
 
       data.push({ dep: deps[i], dengueCases, zikaCases })
@@ -153,7 +154,7 @@ class Services {
     let totalDengue = 0;
     for (let i = 0; i < jss.length; i++) {
       if (jss[i].evento_nombre === 'Dengue') {
-        totalDengue += Number(jss[i].cantidad_casos);
+        totalDengue = totalDengue + Number(jss[i].cantidad_casos);
       }
     }
     return { totalDengue };
