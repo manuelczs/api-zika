@@ -13,7 +13,7 @@ const port = config.port || 4000;
 const navigation = [
   { link: '/', name: 'Casos' },
   { link: '/map', name: 'Mapa' },
-  { link: '/contact', name: 'Contacto' },
+  { link: '/contact', name: 'Contacto' }
 ];
 
 //var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
@@ -58,22 +58,22 @@ app.get('/', async (req, res) => {
 
   await axios.get(URL_API + 'total_dengue').then(response => {
     totalDengue = response.data.totalDengue;
-    console.log('total dengue: ' + totalDengue)
+    //console.log('total dengue: ' + totalDengue)
   }).catch(err => { console.log(err)});
 
   await axios.get(URL_API + 'total_zika').then(response => {
     totalZika = response.data.totalZika;
-    console.log('total zika: ' + totalZika)
+    //console.log('total zika: ' + totalZika)
   }).catch(err => { console.log(err) })
 
   await axios.get(URL_API + 'provinces').then(response => {
     allProvinces = response.data.provinces;
-    console.log('Provinces: ' + allProvinces)
+    //console.log('Provinces: ' + allProvinces)
   }).catch(err => { console.log(err) })
 
   await axios.get(URL_API + 'departaments').then(response => {
     allDepartaments = response.data.departaments;
-    console.log('Deps: ' + allDepartaments);
+    //console.log('Deps: ' + allDepartaments);
   }).catch(err => { console.log(err) })
 
   await axios.get(URL_API + 'provs_with_dengue_and_zika_cases').then(response => {
@@ -91,50 +91,69 @@ app.get('/', async (req, res) => {
   });
 });
 
-app.get('/map', (req, res) => {
+/* Map route */
+app.get('/map', async(req, res) => {
   let provinces = [];
+  let provs_argentina = [];
   let provs_coords = [];
-  let provs_country = [];
+  let prov = 'Jujuy';
 
-  axios
-    .get('http://localhost:3000/api/provinces')
-    .then((response) => {
-      provinces = response.data.provinces;
+  let PROVINCES_API_URL = 'http://localhost:3000/api/provinces';
+  let MAP_URL = `https://maps.googleapis.com/maps/api/geocode/json?address=`;
 
-      provs_country = provinces.map((prov) => prov + ', Argentina');
-      //for (let i = 0; i < provinces.length; i++) {
-      //  provs_country.push(provinces[i] + ', Argentina');
-      //}
+  /* Axios Requests */
+  let requestProvinces = axios.get(PROVINCES_API_URL);
+  let requestCoords = axios.get(MAP_URL);
+  
 
-      provs_country.map((prov) => {
-        axios
-          .get(
-            `ttps://maps.googleapis.com/maps/api/geocode/json?address=${prov}&key=${config.apiKeyGoogle}`
-          )
-          .then((response) => {
-            provs_coords.push(response.data.results[0].geometry.location);
-            //console.log(response.data.results[0].geometry.location);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      });
-
-      //for (let i = 0; i < provinces.length; i++) {
-      //  let LOCATION = provs_country[i];
-      //  let url_api = `https://maps.googleapis.com/maps/api/geocode/json?address=${LOCATION}&key=${API_KEY}`;
-      // Change this above line
-      //let position = $.getJSON(url_api).responseJSON.results[0].geometry.location;
-      //  provs_coords.push(position);
-      // }
+  /* GET all province names */
+  axios.get(PROVINCES_API_URL)
+    .then(response => {
+      provinces = response.data.provinces.map(prov => prov + ', Argentina');
+      console.log(provinces)
     })
     .then(() => {
-      res.render('map', { navigation, provinces, provs_coords });
+      provs_coords = provinces.map(prov => axios.get(MAP_URL + `${prov}&key=${config.apiKeyGoogle}`)
+        .then((resp) => (
+          resp.data.results[0].geometry.location
+      ))
+      .catch(err => {
+        console.log(err)
+      }))
     })
-    .catch((err) => {
-      console.log('There was an error: ' + err);
-    });
-});
+    .then(() => {
+      console.log(provs_coords)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+
+  res.render('index', { page: 'map', navigation, provs_coords })
+})
+
+
+
+/*
+.then(() => {
+  provs_argentina.map((prov) => {
+    axios
+      .get(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${prov}&key=${config.apiKeyGoogle}`
+      )
+      .then((response) => {
+        provs_coords.push(response.data.results[0].geometry.location);
+        console.log(provs_coords)
+      }).then(() => {
+        //res.render('index', { navigation, provs_coords, page: 'map' });
+        console.log('xxx')
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  });
+})
+*/
+
 
 app.get('/contact', (req, res) => {
   res.render('index', { navigation, page: 'contact' });
