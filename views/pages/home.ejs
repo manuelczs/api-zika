@@ -13,10 +13,15 @@
         <% provsWithDengueAndZika.map((prov, key) => { %>
           <tr>
             <th scope="row"><%= key+1 %></th>
-              <td>
-                <a href="<%= prov.provincia %>/total_deps_dengue_zika" class="anchor-prov">
+              <td>                
+                <a class="unselectable">
                   <%= prov.provincia %>
                 </a>
+                <span class="badge badge-info badge-pill">
+                  <small>
+                    <a href="<%= prov.provincia %>/total_deps_dengue_zika" class="anchor-prov">Detalle</a>
+                  </small>
+                </span>
               </td>
             <td>
               <span class="badge badge-primary badge-pill">
@@ -134,7 +139,7 @@
       }
     });  
   }).then(() => {
-    const dataProv = provincesWithInfo.map(prov => prov.totalDengue > 0 ? prov.totalDengue : null).filter(item => item !== null);    
+    const dataProv = provincesWithInfo.map(prov => prov.totalDengue > 0 ? prov.totalDengue : null).filter(item => item !== null);
     const data = {
       labels: provinces,
       datasets: [{
