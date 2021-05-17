@@ -86,30 +86,30 @@
 </div>
 <!-- end main Row -->
 
-<script>
-  let provs = JSON.parse("<%= JSON.stringify(provs_coords) %>".replaceAll('&#34;', ''))
+<script type="text/javascript">
+  let provs = "<%= JSON.stringify(provs_coords) %>".replaceAll('&#34;', '')
+  
+  function initMap() {
+    // The location of Argentina
+    let argentina = {lat: -32, lng: -64};
+    // The map, centered at Argentina
+    let map = new google.maps.Map(
+        document.getElementById('map'), {
+          zoom: 5,
+          center: argentina,
+          mapId: '48164049618caf5b'
+        });
 
-    function initMap() {
-      // The location of Argentina
-      let argentina = {lat: -32, lng: -64};
-      // The map, centered at Argentina
-      let map = new google.maps.Map(
-          document.getElementById('map'), {
-            zoom: 5,
-            center: argentina,
-            mapId: '48164049618caf5b'
-          });
+    /* 
+    let marker = new google.maps.Marker({
+      position: argentina,
+      map: map,
+    });
+    */
 
-      /* 
-      let marker = new google.maps.Marker({
-        position: argentina,
-        map: map,
-      });
-      */
-
-    }
-    
-    console.log(provs)
+  }
+  
+  console.log(provs)
     
 </script>
 
