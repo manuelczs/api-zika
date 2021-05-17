@@ -1,10 +1,10 @@
 <div class="row">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-12 col-md-8">
+      <div class="col-sm-12 col-md-8 col-lg-8">
         <div id="map"></div>
       </div>
-      <div class="col-sm-12 col-md-4">
+      <div class="col-sm-12 col-md-4 col-lg-4">
         <table class="table">
           <thead class="thead-dark">
             <tr>
@@ -87,7 +87,7 @@
 <!-- end main Row -->
 
 <script>
-    let provs = "<%= JSON.stringify(provs_coords) %>"
+  let provs = JSON.parse("<%= JSON.stringify(provs_coords) %>".replaceAll('&#34;', ''))
 
     function initMap() {
       // The location of Argentina
@@ -100,11 +100,17 @@
             mapId: '48164049618caf5b'
           });
 
+      /* 
       let marker = new google.maps.Marker({
         position: argentina,
         map: map,
       });
+      */
+
     }
+    
+    console.log(provs)
+    
 </script>
 
 <script async defer

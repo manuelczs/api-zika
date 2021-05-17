@@ -92,41 +92,34 @@ app.get('/', async (req, res) => {
 });
 
 /* Map route */
-app.get('/map', async(req, res) => {
+app.get('/map', async (req, res) => {
   let provinces = [];
-  let provs_argentina = [];
   let provs_coords = [];
-  let prov = 'Jujuy';
 
   let PROVINCES_API_URL = 'http://localhost:3000/api/provinces';
-  let MAP_URL = `https://maps.googleapis.com/maps/api/geocode/json?address=`;
-
-  /* Axios Requests */
-  let requestProvinces = axios.get(PROVINCES_API_URL);
-  let requestCoords = axios.get(MAP_URL);
-  
+  let MAP_URL = `hps://maps.googleapis.com/maps/api/geocode/json?address=`;
 
   /* GET all province names */
-  axios.get(PROVINCES_API_URL)
-    .then(response => {
-      provinces = response.data.provinces.map(prov => prov + ', Argentina');
-      console.log(provinces)
-    })
-    .then(() => {
-      provs_coords = provinces.map(prov => axios.get(MAP_URL + `${prov}&key=${config.apiKeyGoogle}`)
-        .then((resp) => (
-          resp.data.results[0].geometry.location
-      ))
-      .catch(err => {
-        console.log(err)
-      }))
-    })
-    .then(() => {
-      console.log(provs_coords)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+
+  try {
+    const response = await axios.get(PROVINCES_API_URL);
+    provinces = await response.data.provinces.map(prov => prov.replaceAll(' ', '+') + '+Argentina');
+    console.log(provinces)
+  } catch(err) {
+    console.error(err)
+  }
+
+  try {
+
+    for(let i=0; i<provinces.length; i++) {
+      let response = '';
+      response = await axios.get(MAP_URL + provinces[i] + `&key=${config.apiKeyGoogle}`);
+      provs_coords.push(response.data.results[0].geometry.location);
+    }
+
+  } catch(err) {
+    console.error(err);
+  }
 
   res.render('index', { page: 'map', navigation, provs_coords })
 })
