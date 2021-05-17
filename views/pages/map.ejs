@@ -86,9 +86,13 @@
 </div>
 <!-- end main Row -->
 
-<script type="text/javascript">
-  let provs = "<%= JSON.stringify(provs_coords) %>".replaceAll('&#34;', '')
-  
+<script>
+  let provs = "<%= JSON.stringify(provs_coords) %>".replaceAll("&#34;", "");
+  provs = provs.replaceAll('lng', '"lng"');
+  provs = provs.replaceAll('lat', '"lat"');
+
+  provs = JSON.parse(provs);
+
   function initMap() {
     // The location of Argentina
     let argentina = {lat: -32, lng: -64};
@@ -100,17 +104,14 @@
           mapId: '48164049618caf5b'
         });
 
-    /* 
-    let marker = new google.maps.Marker({
-      position: argentina,
-      map: map,
-    });
-    */
+    for(let i=0; i<provs.length; i++) {
+      new google.maps.Marker({
+        position: provs[i],
+        map
+      })
+    }
 
   }
-  
-  console.log(provs)
-    
 </script>
 
 <script async defer

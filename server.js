@@ -141,9 +141,9 @@ app.get('/map', async (req, res) => {
   } catch(err) {
     console.error(err);
   }
+
   res.render('index', { page: 'map', navigation, provs_coords })
 })
-
 
 app.get('/contact', (req, res) => {
   res.render('index', { navigation, page: 'contact' });
