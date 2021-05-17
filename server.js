@@ -95,62 +95,60 @@ app.get('/', async (req, res) => {
 app.get('/map', async (req, res) => {
   let provinces = [];
   let provs_coords = [];
-
   let PROVINCES_API_URL = 'http://localhost:3000/api/provinces';
-  let MAP_URL = `hps://maps.googleapis.com/maps/api/geocode/json?address=`;
+  let MAP_URL = `https://maps.googleapis.com/maps/api/geocode/json?address=`;
+
+  const replace_prov = (provs) => {
+    let provs_replaced = [...provs]
+    if(provs.includes('Córdoba')) {
+      provs_replaced[provs_replaced.indexOf('Córdoba')] = 'Cordoba'
+    }
+    
+    if(provs.includes('Entre Ríos')) {
+      provs_replaced[provs_replaced.indexOf('Entre Ríos')] = 'Entre Rios'
+    } 
+    
+    if(provs.includes('Río Negro')) {
+      provs_replaced[provs_replaced.indexOf('Río Negro')]
+    }
+    
+    if(provs.includes('Tucumán')) {
+      provs_replaced[provs_replaced.indexOf('Tucumán')] = 'Tucuman'
+    }
+
+    return provs_replaced
+  }
 
   /* GET all province names */
-
   try {
     const response = await axios.get(PROVINCES_API_URL);
-    provinces = await response.data.provinces.map(prov => prov.replaceAll(' ', '+') + '+Argentina');
+    //provinces = await response.data.provinces.map(prov => prov.replaceAll(' ', '+') + '+Argentina');
+
+    provinces = await response.data.provinces
+    provinces = replace_prov(provinces);
+    provinces = provinces.map(prov => prov.replaceAll(' ', '+') + '+Argentina');
     console.log(provinces)
   } catch(err) {
     console.error(err)
   }
 
   try {
-
     for(let i=0; i<provinces.length; i++) {
       let response = '';
       response = await axios.get(MAP_URL + provinces[i] + `&key=${config.apiKeyGoogle}`);
       provs_coords.push(response.data.results[0].geometry.location);
     }
-
   } catch(err) {
     console.error(err);
   }
-
   res.render('index', { page: 'map', navigation, provs_coords })
 })
-
-
-
-/*
-.then(() => {
-  provs_argentina.map((prov) => {
-    axios
-      .get(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${prov}&key=${config.apiKeyGoogle}`
-      )
-      .then((response) => {
-        provs_coords.push(response.data.results[0].geometry.location);
-        console.log(provs_coords)
-      }).then(() => {
-        //res.render('index', { navigation, provs_coords, page: 'map' });
-        console.log('xxx')
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  });
-})
-*/
 
 
 app.get('/contact', (req, res) => {
   res.render('index', { navigation, page: 'contact' });
 });
+
 
 app.get('/prov/:provName', async(req, res) => {
   const prov = req.params.provName;
@@ -164,6 +162,7 @@ app.get('/prov/:provName', async(req, res) => {
 
   res.render('index', { navigation, page: 'deps', prov, deps });
 })
+
 
 app.get('/:provName/total_deps_dengue_zika', async(req, res) => {
   const prov = req.params.provName;
@@ -184,5 +183,6 @@ app.get('/:provName/total_deps_dengue_zika', async(req, res) => {
 
   res.render('index', { navigation, page: 'deps', prov, deps, totalDengueProv, totalZikaProv });
 })
+
 
 app.listen(port, () => console.log(`port ${port} listening...`));
