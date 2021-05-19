@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col">
+  <div class="col-sm-12 col-md-6">
     <table class="table table-striped table-dark">
       <thead>
         <tr>
@@ -41,15 +41,22 @@
     </table>
   </div>
 
-  <div class="col">
+  <div class="col-sm-12 col-md-6">
     <!-- Some text here -->
-    <div>
-      <h1>Total Dengue: <%= totalDengue %> </h1>
-      <h1>Total Zika: <%= totalZika %> </h1>
-      <h1>Total provincias afectadas: <%= allProvinces.length %> </h1>
+    
+    <div class="">
+      <div class="ml-3">
+        <h3>Total Dengue: <%= totalDengue %></h3>
+        <h3>Total Zika: <%= totalZika %></h3>
+        <h3>Total provincias afectadas: <%= allProvinces.length %></h3>
+      </div>
     </div>
-    <div class="col">
-      <div class="row">
+
+    <div class="row">
+
+      <div class="col">
+ 
+        <div class="row">
 
           <div class="col chart-container" style="position: relative; height:20vh; width:20vw">
             <div class="text-center">
@@ -69,7 +76,9 @@
               <canvas id="myChartZika"></canvas>
           </div>
 
+        </div>
       </div>
+
     </div>
   </div>
 </div>
