@@ -46,9 +46,9 @@
     
     <div class="">
       <div class="ml-3">
-        <h3>Total Dengue: <%= totalDengue %></h3>
-        <h3>Total Zika: <%= totalZika %></h3>
-        <h3>Total provincias afectadas: <%= allProvinces.length %></h3>
+        <h3><span class="badge bg-info">Total Dengue: <%= totalDengue %></span></h3>
+        <h3><span class="badge bg-info">Total Zika: <%= totalZika %></span></h3>
+        <h3><span class="badge bg-info">Total provincias afectadas: <%= allProvinces.length %></span></h3>
       </div>
     </div>
 
@@ -61,7 +61,7 @@
           <div class="col chart-container" style="position: relative; height:20vh; width:20vw">
             <div class="text-center">
               <p>
-                <h2 class="">Dengue</h2>
+                <h2 class=""><span class="badge bg-warning">Dengue</span></h2>
               </p>
             </div>
             <canvas id="myChartDengue"></canvas>
@@ -70,7 +70,7 @@
           <div class="col chart-container" style="position: relative; height:20vh; width:20vw">
               <div class="text-center">
                 <p>
-                  <h2>Zika</h2>
+                  <h2 class=""><span class="badge bg-primary text-white">Zika</span></h2>
                 </p>
               </div>
               <canvas id="myChartZika"></canvas>
