@@ -36,32 +36,36 @@
     </table>
   </div>
 
-  <div class="col">
+  <div class="col-sm-12 col-md-6">
     <!-- Some text here -->
-    <div>
-      <h1>Provincia: <%= prov %>  </h1>
-      <h1>Total Dengue: <%= totalDengueProv %> </h1>
-      <h1>Total Zika: <%= totalZikaProv %> </h1>
+    <div class="">
+      <div class="ml-3">
+        <h3>Provincia: <%= prov %>  </h3>
+        <h3>Total Dengue: <%= totalDengueProv %> </h3>
+        <h3>Total Zika: <%= totalZikaProv %> </h3>
+      </div>
     </div>
 
-    <div class="col">
-      <div class="row">
-        <div class="col chart-container" style="position: relative; height:20vh; width:20vw">
-          <div class="text-center">
-            <p>
-              <h2>Dengue</h2>
-            </p>
+    <div class="row">
+      <div class="col">
+        <div class="row">
+          <div class="col chart-container" style="position: relative; height:20vh; width:20vw">
+            <div class="text-center">
+              <p>
+                <h2>Dengue</h2>
+              </p>
+            </div>
+            <canvas id="myChart"></canvas>
           </div>
-          <canvas id="myChart"></canvas>
-        </div>
-
-        <div class="col chart-container" style="position: relative; height:20vh; width:20vw">
-          <div class="text-center">
-            <p>
-              <h2>Zika</h2>
-            </p>
+  
+          <div class="col chart-container" style="position: relative; height:20vh; width:20vw">
+            <div class="text-center">
+              <p>
+                <h2>Zika</h2>
+              </p>
+            </div>
+            <canvas id="zikaChart"></canvas>
           </div>
-          <canvas id="zikaChart"></canvas>
         </div>
       </div>
     </div>
