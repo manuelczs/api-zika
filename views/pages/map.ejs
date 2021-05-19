@@ -92,7 +92,7 @@
   provs = provs.replaceAll('lat', '"lat"');
 
   provs = JSON.parse(provs);
-
+  const iconBase = "http://maps.google.com/mapfiles/kml/pal3/icon38.png"
   function initMap() {
     // The location of Argentina
     let argentina = {lat: -32, lng: -64};
@@ -107,6 +107,7 @@
     for(let i=0; i<provs.length; i++) {
       new google.maps.Marker({
         position: provs[i],
+        icon: iconBase,
         map
       })
     }
