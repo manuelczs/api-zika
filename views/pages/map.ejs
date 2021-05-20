@@ -86,10 +86,19 @@
 </div>
 <!-- end main Row -->
 
-<script>
+<script async>
   let provs = "<%= JSON.stringify(provs_coords) %>".replaceAll("&#34;", "");
   provs = provs.replaceAll('lng', '"lng"');
   provs = provs.replaceAll('lat', '"lat"');
+  let totalCasesProv = [];
+
+  axios.get('http://localhost:3000/api/provs_with_dengue_and_zika_cases')
+    .then(response => {
+      response.data.map(item => totalCasesProv.push(item))
+    })
+    .then(() => {
+      console.log(totalCasesProv)
+    })
 
   provs = JSON.parse(provs);
   const iconBase = "http://maps.google.com/mapfiles/kml/pal3/icon38.png"
@@ -104,11 +113,27 @@
           mapId: '48164049618caf5b'
         });
 
+    const contentString =
+    '<div id="content">' +
+    '<div id="siteNotice">' +
+    "</div>" +
+    '<h3 id="firstHeading" class="firstHeading">Provincia</h3>' +
+    '<div id="bodyContent">' +
+    "</div>" +
+    "</div>";
+
+    const infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+
     for(let i=0; i<provs.length; i++) {
-      new google.maps.Marker({
+      const marker = new google.maps.Marker({
         position: provs[i],
         icon: iconBase,
         map
+      });
+      marker.addListener('click', () => {
+        infowindow.open(map, marker);
       })
     }
 
