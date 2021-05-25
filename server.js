@@ -99,6 +99,16 @@ app.get('/map', async (req, res) => {
   let provs_coords_w = [];
   let PROVINCES_API_URL = 'http://localhost:3000/api/provinces';
   let MAP_URL = `https://maps.googleapis.com/maps/api/geocode/json?address=`;
+  const URL_PROVS_WITH_ALL_CASES = 'http://localhost:3000/api/provs_with_dengue_and_zika_cases';
+
+  const getProvsWithAllCases = async() => {
+    try {
+      const response = await axios.get(URL_PROVS_WITH_ALL_CASES)
+      return response.data
+    } catch(err) {
+      console.log(err)
+    }
+  }
 
   const replace_prov = (provs) => {
     let provs_replaced = [...provs]
@@ -121,6 +131,10 @@ app.get('/map', async (req, res) => {
     return provs_replaced
   }
 
+  /* Call to getProvsWithAllCases */
+  const provsWithAllCases = await getProvsWithAllCases();
+
+
   /* GET all province names */
   try {
     const response = await axios.get(PROVINCES_API_URL);
@@ -128,7 +142,6 @@ app.get('/map', async (req, res) => {
     provinces_ = await response.data.provinces
     provinces = replace_prov(provinces_);
     provinces = provinces.map(prov => prov.replaceAll(' ', '+') + '+Argentina');
-    console.log(provinces)
   } catch(err) {
     console.error(err)
   }
@@ -141,14 +154,19 @@ app.get('/map', async (req, res) => {
     }
 
     for(let i=0; i<provinces_.length; i++) {
-      provs_coords_w.push({ province: provinces_[i], coords: provs_coords[i], dengue: 2, zika: 2 })
+      provs_coords_w.push({
+        province: provinces_[i],
+        coords: provs_coords[i], 
+        dengue: provsWithAllCases[i].totalDengue, 
+        zika: provsWithAllCases[i].totalZika
+      })
     }
 
   } catch(err) {
     console.error(err);
   }
 
-  res.render('index', { page: 'map', navigation, provs_coords })
+  res.render('index', { page: 'map', navigation, provs_coords_w })
 })
 
 app.get('/contact', (req, res) => {
