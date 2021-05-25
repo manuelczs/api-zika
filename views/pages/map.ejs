@@ -87,27 +87,22 @@
 <!-- end main Row -->
 
 <script async>
+  let totalCasesProv = [];
   let provs = "<%= JSON.stringify(provs_coords) %>".replaceAll("&#34;", "");
+  
+
   provs = provs.replaceAll('lng', '"lng"');
   provs = provs.replaceAll('lat', '"lat"');
-  let totalCasesProv = [];
-
-  async function getTotalCasesProv() {
-    try {
-      const response = await axios.get('http://localhost:3000/api/provs_with_dengue_and_zika_cases');
-      totalCasesProv = response.data.map(item => item);
-      console.log(totalCasesProv)
-    } catch(error) {
-      console.log(error)
-    }
-  }
-
-  getTotalCasesProv();
-
+  provs = provs.replaceAll('province', '"province"');
+  provs = provs.replaceAll('coords', '"coords"');
+  provs = provs.replaceAll('dengue', '"dengue"');
+  provs = provs.replaceAll('zika', '"zika"');
+  
+  console.log(provs)
   provs = JSON.parse(provs);
-  const iconBase = "http://maps.google.com/mapfiles/kml/pal3/icon38.png"
 
   function initMap() {
+    const iconBase = "http://maps.google.com/mapfiles/kml/pal3/icon38.png"
     // The location of Argentina
     let argentina = {lat: -32, lng: -64};
     // The map, centered at Argentina
@@ -129,8 +124,10 @@
       '<div id="content">' +
       '<div id="siteNotice">' +
       "</div>" +
-      `<h3 id="firstHeading" class="firstHeading">${totalCasesProv}</h3>` +
+      `<h3 id="firstHeading" class="firstHeading">${provs[i].provincia}</h3>` +
       '<div id="bodyContent">' +
+      `<div><h5>Dengue: ${provs[i].totalDengue}</h5></div>` +
+      `<div><h5>Zika: ${provs[i].totalZika}</h5></div>` +
       "</div>" +
       "</div>";
 
@@ -146,6 +143,6 @@
 </script>
 
 <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVLrCMa-XmuVYPDsQqGn8Veantsp1w8bc&callback=initMap"></script>
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVLrCMa-XmuVYPDsQqGn8Veantsp1w8bc&callback=initMap">
 </script>
 

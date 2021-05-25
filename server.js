@@ -94,7 +94,9 @@ app.get('/', async (req, res) => {
 /* Map route */
 app.get('/map', async (req, res) => {
   let provinces = [];
+  let provinces_ = [];
   let provs_coords = [];
+  let provs_coords_w = [];
   let PROVINCES_API_URL = 'http://localhost:3000/api/provinces';
   let MAP_URL = `https://maps.googleapis.com/maps/api/geocode/json?address=`;
 
@@ -122,10 +124,9 @@ app.get('/map', async (req, res) => {
   /* GET all province names */
   try {
     const response = await axios.get(PROVINCES_API_URL);
-    //provinces = await response.data.provinces.map(prov => prov.replaceAll(' ', '+') + '+Argentina');
-
-    provinces = await response.data.provinces
-    provinces = replace_prov(provinces);
+    
+    provinces_ = await response.data.provinces
+    provinces = replace_prov(provinces_);
     provinces = provinces.map(prov => prov.replaceAll(' ', '+') + '+Argentina');
     console.log(provinces)
   } catch(err) {
@@ -138,6 +139,11 @@ app.get('/map', async (req, res) => {
       response = await axios.get(MAP_URL + provinces[i] + `&key=${config.apiKeyGoogle}`);
       provs_coords.push(response.data.results[0].geometry.location);
     }
+
+    for(let i=0; i<provinces_.length; i++) {
+      provs_coords_w.push({ province: provinces_[i], coords: provs_coords[i], dengue: 2, zika: 2 })
+    }
+
   } catch(err) {
     console.error(err);
   }
