@@ -138,7 +138,6 @@ class Services {
             dengueCases = dengueCases + Number(jss[j].cantidad_casos);
         } else if(jss[j].departamento_nombre == deps[i] && jss[j].provincia_nombre == prov
             && jss[j].evento_nombre == 'Enfermedad por Virus del Zika') {
-            //zikaCases = zikaCases + 1;
             zikaCases = zikaCases + Number(jss[j].cantidad_casos)
           }
       }
