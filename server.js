@@ -16,15 +16,13 @@ const navigation = [
   { link: '/contact', name: 'Contacto' }
 ];
 
-//var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
-
 app.use(morgan('dev'));
 app.use(express.static(path.resolve(__dirname, 'public')));
 app.set('view engine', 'ejs');
 const URL_API = 'http://localhost:3000/api/';
 
-// ******************************************************** //
 /*
+var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'))
 var request = http.get(URL_CSV, function(response) {
     if (response.statusCode === 200) {
         var file = fs.createWriteStream("./csv/file.csv");
@@ -44,9 +42,6 @@ var json_result = csvjson.toObject(file_+data, options);
 var data = JSON.stringify(json_result);
 fs.writeFileSync('./json/final-json.in', data);
 */
-// ******************************************************** //
-
-/* End */
 
 app.use(api);
 app.get('/', async (req, res) => {
