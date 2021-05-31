@@ -9,6 +9,11 @@ import api from './routes';
 import config from './config'
 import cors from 'cors'
 
+const corsOptions = {
+  origin: 'https://manux.ar',
+  optionsSuccessStatus: 200
+}
+
 const app = express();
 const port = config.port || 4000;
 const navigation = [
@@ -20,7 +25,7 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(express.static(path.resolve(__dirname, 'public')));
 app.set('view engine', 'ejs');
-const URL_API = 'http://localhost:3000/api/';
+const URL_API = 'https://manux.ar/api/';
 
 /*
 var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'))
@@ -46,7 +51,7 @@ fs.writeFileSync('./json/final-json.in', data);
 
 
 app.use(api);
-app.get('/', async (req, res) => {
+app.get('/', cors(corsOptions), async (req, res) => {
   let totalDengue = 0;
   let totalZika = 0;
   let allProvinces = [];
