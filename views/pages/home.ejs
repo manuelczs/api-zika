@@ -117,7 +117,7 @@
   '#5e0b0b',
 ]
 
-  axios.get('https://localhost:3000/api/provs_with_dengue_and_zika_cases').then(response => {
+  axios.get('http://manux.ar:3000/api/provs_with_dengue_and_zika_cases').then(response => {
     provincesWithInfo = response.data;
     provinces = response.data.map(prov => prov.totalDengue > 0 ? prov.provincia : null).filter(item => item !== null);
     provinces_ = response.data.map(prov => prov.totalZika > 0 ? prov.provincia : null).filter(item => item !== null);
