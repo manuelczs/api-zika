@@ -9,19 +9,14 @@ import api from './routes';
 import config from './config'
 import cors from 'cors'
 
-const corsOptions = {
-  origin: 'https://manux.ar',
-  optionsSuccessStatus: 200
-}
-
 const app = express();
+app.use(cors());
 const port = config.port || 4000;
 const navigation = [
   { link: '/', name: 'Casos' },
   { link: '/map', name: 'Mapa' },
   { link: '/contact', name: 'Contacto' }
 ];
-app.use(cors());
 app.use(morgan('dev'));
 app.use(express.static(path.resolve(__dirname, 'public')));
 app.set('view engine', 'ejs');
@@ -51,7 +46,7 @@ fs.writeFileSync('./json/final-json.in', data);
 
 
 app.use(api);
-app.get('/', cors(corsOptions), async (req, res) => {
+app.get('/', async (req, res) => {
   let totalDengue = 0;
   let totalZika = 0;
   let allProvinces = [];
