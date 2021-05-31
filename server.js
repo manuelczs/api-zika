@@ -25,7 +25,7 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(express.static(path.resolve(__dirname, 'public')));
 app.set('view engine', 'ejs');
-const URL_API = 'https://manux.ar/api/';
+const URL_API = 'http://localhost:3000/api/';
 
 /*
 var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'))
