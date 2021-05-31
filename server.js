@@ -16,7 +16,7 @@ const navigation = [
   { link: '/map', name: 'Mapa' },
   { link: '/contact', name: 'Contacto' }
 ];
-app.use(cors);
+app.use(cors());
 app.use(morgan('dev'));
 app.use(express.static(path.resolve(__dirname, 'public')));
 app.set('view engine', 'ejs');
