@@ -7,6 +7,7 @@ import path from 'path';
 import csvjson from 'csvjson';
 import api from './routes';
 import config from './config'
+import cors from 'cors'
 
 const app = express();
 const port = config.port || 4000;
@@ -15,7 +16,7 @@ const navigation = [
   { link: '/map', name: 'Mapa' },
   { link: '/contact', name: 'Contacto' }
 ];
-
+app.use(cors);
 app.use(morgan('dev'));
 app.use(express.static(path.resolve(__dirname, 'public')));
 app.set('view engine', 'ejs');
@@ -42,6 +43,7 @@ var json_result = csvjson.toObject(file_+data, options);
 var data = JSON.stringify(json_result);
 fs.writeFileSync('./json/final-json.in', data);
 */
+
 
 app.use(api);
 app.get('/', async (req, res) => {
