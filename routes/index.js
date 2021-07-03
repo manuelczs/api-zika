@@ -10,26 +10,26 @@ var jsonData = JSON.parse(fs.readFileSync('./json/final-json.in', 'utf8'));
 routes.use(router);
 const services = new Services();
 
-routes.get('/api/provinces', (req, res) => {
+routes.get('/api/provinces', async (req, res) => {
   try {
-    res.status(200).json(services.getProvinces(jsonData));
+    await res.status(200).json(services.getProvinces(jsonData));
   } catch (e) {
     res.status(500).send(e);
   }
 });
 
-routes.get('/api/departaments', (req, res) => {
+routes.get('/api/departaments', async (req, res) => {
   try {
-    res.status(200).json(services.getDeparts(jsonData));
+    await res.status(200).json(services.getDeparts(jsonData));
   } catch (e) {
     res.status(500).send(e);
   }
 });
 
-routes.get('/api/deps_by_prov/:prov', (req, res) => {
+routes.get('/api/deps_by_prov/:prov', async (req, res) => {
   const prov = req.params.prov;
   try {
-    res
+    await res
       .status(200)
       .json(services.getDepsByProv(`${prov}`, jsonData));
   } catch (e) {
@@ -37,42 +37,42 @@ routes.get('/api/deps_by_prov/:prov', (req, res) => {
   }
 });
 
-routes.get('/api/total_dengue', (req, res) => {
+routes.get('/api/total_dengue', async (req, res) => {
   try {
-    res.status(200).json(services.getTotalDengue(jsonData));
+    await res.status(200).json(services.getTotalDengue(jsonData));
   } catch (e) {
     res.status(500).send(e);
   }
 });
 
-routes.get('/api/total_zika', (req, res) => {
+routes.get('/api/total_zika', async (req, res) => {
   try {
-    res.status(200).json(services.getTotalZika(jsonData));
+    await res.status(200).json(services.getTotalZika(jsonData));
   } catch (e) {
     res.status(500).send(e);
   }
 });
 
-routes.get('/api/provs_with_dengue_and_zika_cases', (req, res) => {
+routes.get('/api/provs_with_dengue_and_zika_cases', async (req, res) => {
   try {
-    res.status(200).json(services.getProvsWithDengueAndZikaCases(jsonData));
+    await res.status(200).json(services.getProvsWithDengueAndZikaCases(jsonData));
   } catch(err) {
     res.status(500).send(err)
   }
 })
 
-routes.get('/api/departaments', (req, res) => {
+routes.get('/api/departaments', async (req, res) => {
   try {
-    res.status(200).json(services.getDeparts(jsonData));
+    await res.status(200).json(services.getDeparts(jsonData));
   } catch (e) {
     res.status(500).send(e);
   }
 });
 
-routes.get('/api/:prov/total_deps_dengue_zika', (req, res) => {
+routes.get('/api/:prov/total_deps_dengue_zika', async (req, res) => {
   let prov = req.params.prov
   try {
-    res.status(200).json(services.getDengueAndZikaByDep(prov, jsonData))
+    await res.status(200).json(services.getDengueAndZikaByDep(prov, jsonData))
   } catch(err) {
     console.log(err)
     res.status(500).send(err)
