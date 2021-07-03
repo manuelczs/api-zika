@@ -105,7 +105,7 @@ class Services {
     let provinces = this.getProvinces(jss);
     provinces = provinces.provinces;
     let provsList = [];
-    
+
     for(let i = 0; i<provinces.length; i++) {
       let totalDengue = 0;
       let totalZika = 0;
