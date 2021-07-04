@@ -8,6 +8,7 @@ import csvjson from 'csvjson';
 import api from './routes';
 import config from './config'
 import cors from 'cors'
+import mailer from './mailer'
 
 const app = express();
 app.use(cors());
@@ -170,6 +171,26 @@ app.get('/contact', (req, res) => {
   res.render('index', { navigation, page: 'contact' });
 });
 
+app.post('/contact', async(req, res) => {
+  // fields from request here...
+  const { name, email, subject, message } = req.body;
+  await mailer({
+    from: email,
+    to: INBOX_EMAIL,
+    subject,
+    text:
+      `>> Name: ${name}\n` +
+      `>> Email: ${email}\n` +
+      `>> Subject: ${subject}\n` +
+      `>> Message: ${message}\n`,
+  })
+
+  setTimeout(() => {
+    flag = true;
+    res.redirect('/contact');
+  }, 2500);
+
+})
 
 app.get('/prov/:provName', async(req, res) => {
   const prov = req.params.provName;
