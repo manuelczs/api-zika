@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <%- include('./layout/head') %>
+  <body class="container-fluid">
+    <!-- main Row -->    
+    <div class="">
+      <div class="">
+        <!-- Main Header -->
+        <div class="container-fluid">
+          <%- include('./layout/main-head') %>
+        </div>
+        <!-- NavBar -->
+        <div>
+          <%- include('./layout/navbar') %> 
+        </div>
+        <hr>
+        <!-- Render pages -->
+        <div class="">
+          <%- include(`./pages/${page}`) %>
+        </div>
+      </div>
+      <hr>
+    </div> <!-- end main row -->
+    <!-- end main Row -->
+
+    <!-- Footer -->
+    <div>
+      <%- include('./layout/footer') %>
+    </div>
+
+  </body>
+</html>
