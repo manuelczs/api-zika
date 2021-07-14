@@ -165,7 +165,7 @@ app.get('/map', async (req, res) => {
     console.error(err);
   }
 
-  res.render('index', { page: 'map', navigation, provs_coords_w })
+  res.render('index', { page: 'map', navigation, provs_coords_w, urlMap: config.urlMap })
 })
 
 app.get('/contact', (req, res) => {
