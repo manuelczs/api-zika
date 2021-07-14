@@ -7,6 +7,7 @@ const config = {
   email: process.env.EMAIL,
   emailService: process.env.EMAIL_SERVICE,
   emailPassword: process.env.EMAIL_PASSWORD,
+  urlMap: process.env.URL_MAP
 }
 
 module.exports = config;
