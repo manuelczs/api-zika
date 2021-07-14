@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon --exec babel-node server.js",
+    "start": "nodemon --exec babel-node src/index.js",
     "test": "jest",
     "dev": "npm run test && npm run start"
   },
